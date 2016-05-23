@@ -1,7 +1,35 @@
 #!/usr/local/bin/php
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
+$autoload = [
+    __DIR__ . '/../../../autoload.php',
+    __DIR__ . '/../../autoload.php',
+    __DIR__ . '/../vendor/autoload.php',
+    __DIR__ . '/vendor/autoload.php'
+];
+
+foreach ($autoload as $file) {
+    if (file_exists($file)) {
+        define('COMPOSER_INSTALLED', $file);
+
+        break;
+    }
+}
+
+unset($file);
+
+if (! defined('COMPOSER_INSTALLED')) {
+    fwrite(
+        STDERR,
+        'You need to set up the project dependencies using the following commands:' . PHP_EOL .
+        'wget http://getcomposer.org/composer.phar' . PHP_EOL .
+        'php composer.phar install' . PHP_EOL
+    );
+
+    die(1);
+}
+
+require COMPOSER_INSTALLED;
 
 use Symfony\Component\Console\Application;
 

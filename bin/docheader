@@ -1,0 +1,17 @@
+#!/usr/local/bin/php
+<?php
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+
+if (! is_file('.docheader')) {
+    throw \DocHeader\Command\Exception\DocHeaderFileConfiguration::notFound();
+}
+
+// TODO: Create a way to apply filters
+$header = str_replace('%year%', date('Y'), file_get_contents('.docheader'));
+
+$application = new Application();
+$application->add(new \DocHeader\Command\Checker(null, $header));
+$application->run();

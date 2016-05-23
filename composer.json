@@ -1,0 +1,34 @@
+{
+  "name": "malukenho/docheader",
+  "description": "A small library to check header docs",
+  "type": "library",
+  "license": "MIT",
+  "homepage": "https://github.com/malukenho/docheader",
+  "keywords": [
+    "license",
+    "code standard",
+    "code style"
+  ],
+  "authors": [
+    {
+      "name": "Jefersson Nathan",
+      "email": "malukenho@phpse.net"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "DocHeader\\": "src/"
+    }
+  },
+  "require": {
+    "roave/better-reflection": "^1.0",
+    "symfony/console": "^3.0",
+    "symfony/finder": "^3.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.3"
+  },
+  "bin": [
+    "bin/docheader"
+  ]
+}

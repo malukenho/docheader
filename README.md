@@ -8,6 +8,10 @@ a new year using last year copyright dated? *That's sucks!!one!!*
 
 ### Installing
 
+```sh
+ composer require --dev --sort-packages malukenho/docheader
+```
+
 ### Setting up
 
 Put your header in one `.docheader` file in the directory that you're

@@ -21,7 +21,6 @@
     }
   },
   "require": {
-    "roave/better-reflection": "^1.0",
     "symfony/console": "^3.0",
     "symfony/finder": "^3.0"
   },

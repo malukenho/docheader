@@ -9,5 +9,5 @@ $checkRunner = function ($params) {
 
     $basePath = realpath(__DIR__ . '/../../');
 
-    system("$basePath/bin/docheader check $params");
+    system("php $basePath/bin/docheader check $params");
 };

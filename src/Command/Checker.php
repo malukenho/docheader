@@ -44,7 +44,7 @@ final class Checker extends Command
             ->setDescription('Check for docComment')
             ->addArgument(
                 'directory',
-                InputArgument::REQUIRED,
+                InputArgument::IS_ARRAY | InputArgument::REQUIRED,
                 'Directory to scan *.php files'
             );
     }
@@ -55,10 +55,12 @@ final class Checker extends Command
         $finder    = (new FileResolve($directory))->__invoke();
 
         /* @var $file \Symfony\Component\Finder\SplFileInfo */
-        foreach ($finder as $file) {
-            if (!strpos($file->getContents(), $this->header)) {
-                defined('FAILED') ?: define('FAILED', 1);
-                $output->writeln('-> ' . $file->getRelativePathname());
+        foreach ($finder as $directory) {
+            foreach ($directory as $file) {
+                if (!strpos($file->getContents(), $this->header)) {
+                    defined('FAILED') ?: define('FAILED', 1);
+                    $output->writeln('-> ' . $file->getRelativePathname());
+                }
             }
         }
 

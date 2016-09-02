@@ -31,28 +31,38 @@ final class FileResolve
     private $directoryOrFile;
 
     /**
-     * @param string $directoryOrFile
+     * @param array $directoryOrFile
      */
-    public function __construct($directoryOrFile)
+    public function __construct(array $directoryOrFile)
     {
         $this->directoryOrFile = $directoryOrFile;
     }
 
-    private function getDirectory()
+    private function getDirectory($directoryOrFile)
     {
-        return is_dir($this->directoryOrFile) ? $this->directoryOrFile : dirname($this->directoryOrFile);
+        return is_dir($directoryOrFile) ? $directoryOrFile : dirname($directoryOrFile);
     }
 
-    private function getFeatureMatch()
+    private function getFeatureMatch($directoryOrFile)
     {
-        return is_dir($this->directoryOrFile) ? '*.php' : basename($this->directoryOrFile);
+        return is_dir($directoryOrFile) ? '*.php' : basename($directoryOrFile);
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     *
+     * @return Finder[]
+     */
     public function __invoke()
     {
-        return Finder::create()
-            ->files()
-            ->in($this->getDirectory())
-            ->name($this->getFeatureMatch());
+        return array_map(
+            function ($directoryOrFile) {
+                return Finder::create()
+                    ->files()
+                    ->in($this->getDirectory($directoryOrFile))
+                    ->name($this->getFeatureMatch($directoryOrFile));
+            },
+            $this->directoryOrFile
+        );
     }
 }

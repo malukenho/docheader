@@ -38,7 +38,10 @@ final class RegexTest extends \PHPUnit_Framework_TestCase
     {
         $filter = new Regex($regex);
 
-        $this->assertTrue($filter->__invoke($content));
+        $this->assertTrue(
+            $filter->__invoke($content),
+            sprintf('"%s" does NOT match on content "%s"', $regex, $content)
+        );
     }
 
     /**
@@ -62,6 +65,7 @@ final class RegexTest extends \PHPUnit_Framework_TestCase
             'Year format' => ['Heya %re:20\d{2}%', 'Heya 2020'],
             'Year format 2' => ['Heya 20%re:\d{2}%', 'Heya 2020'],
             'Year format 3' => ['Heya %re:20\d{2}%-%year%', 'Heya 2020-%year%'],
+            'Multiple regex' => ['Heya %re:20\d{2}%-%year% %re:19-\d{1}%', 'Heya 2099-%year% 19-1'],
         ];
     }
 

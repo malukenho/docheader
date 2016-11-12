@@ -55,15 +55,17 @@ final class Regex
             return true;
         }
 
+        $matchable = $this->pattern;
+
         /* @var $matches array[] */
         foreach ($matches[1] as $k => $match) {
             $sentence = $matches[0][$k];
 
-            $matchable = str_replace($sentence, $match, $this->pattern);
+            $matchable = str_replace($sentence, $match, $matchable);
+        }
 
-            if (! preg_match('{' . $matchable . '}', $docheader, $m)) {
-                return false;
-            }
+        if (! preg_match('{' . $matchable . '}', $docheader, $m)) {
+            return false;
         }
 
         return true;

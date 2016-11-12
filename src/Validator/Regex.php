@@ -38,11 +38,15 @@ final class Regex
      */
     public function __invoke($docheader)
     {
-        preg_match_all(
+        $didMatch = preg_match_all(
             '{' . preg_quote(self::TAG_BEGIN) . '(.+?)' . preg_quote(self::TAG_END) . '}',
             $this->pattern,
             $matches
         );
+
+        if (! $didMatch) {
+            return true;
+        }
 
         /* @var $matches array[] */
         foreach ($matches[1] as $k => $match) {

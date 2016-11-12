@@ -28,7 +28,7 @@ final class Filter
      */
     private $docheader;
 
-    private $defaultFilters = [
+    private $dockBlockDefaultFilters = [
         ReplaceCurrentYearPlaceholder::class,
     ];
 
@@ -47,7 +47,7 @@ final class Filter
     {
         $docheader = $this->docheader;
 
-        foreach ($this->defaultFilters as $filterName) {
+        foreach ($this->dockBlockDefaultFilters as $filterName) {
             $docheader = (new $filterName)->__invoke($docheader);
         }
 

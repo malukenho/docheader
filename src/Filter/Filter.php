@@ -45,13 +45,12 @@ final class Filter
      */
     public function applyFilters()
     {
-        array_map(
-            function ($filterName) {
-                $this->docheader = (new $filterName)->__invoke($this->docheader);
-            },
-            $this->defaultFilters
-        );
+        $docheader = $this->docheader;
 
-        return $this->docheader;
+        foreach ($this->defaultFilters as $filterName) {
+            $docheader = (new $filterName)->__invoke($docheader);
+        }
+
+        return $docheader;
     }
 }

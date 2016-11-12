@@ -15,8 +15,12 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  */
+
 namespace DocHeader\Command\Exception;
 
+/**
+ * @author Jefersson Nathan <malukenho@phpse.net>
+ */
 final class DirectoryException extends \Exception
 {
     public static function notFound($directory)

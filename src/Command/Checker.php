@@ -59,7 +59,8 @@ final class Checker extends Command
         /* @var $file \Symfony\Component\Finder\SplFileInfo */
         foreach ($finder as $directory) {
             foreach ($directory as $file) {
-                if (! $validator->__invoke($file->getContents())) {
+                if (! $validator->__invoke($file->getContents())
+                    || false === strpos($file->getContents(), $this->header)) {
                     defined('FAILED') ?: define('FAILED', 1);
                     $output->writeln('-> ' . $file->getRelativePathname());
                 }

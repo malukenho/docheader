@@ -26,8 +26,15 @@ final class Regex
 {
     const TAG_BEGIN = '%re:';
     const TAG_END   = '%';
+
+    /**
+     * @var string
+     */
     private $pattern;
 
+    /**
+     * @param string $pattern
+     */
     public function __construct($pattern)
     {
         $this->pattern = $pattern;

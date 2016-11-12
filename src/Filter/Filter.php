@@ -29,7 +29,7 @@ final class Filter
     private $docheader;
 
     private $defaultFilters = [
-        CurrentYear::class,
+        ReplaceCurrentYearPlaceholder::class,
     ];
 
     /**

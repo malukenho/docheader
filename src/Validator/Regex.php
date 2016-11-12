@@ -52,6 +52,8 @@ final class Regex
         );
 
         if (! $didMatch) {
+            // In case of not have any regexp to match
+            // just return true
             return true;
         }
 

@@ -15,22 +15,33 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  */
+namespace DocHeaderTest\Filter;
 
-namespace DocHeader\Filter;
+use DocHeader\Filter\ReplaceCurrentYearPlaceholder;
+use DocHeader\Filter\FilterInterface;
 
 /**
+ * Tests for {@see \DocHeader\Filter\CurrentYear}.
+ *
+ * @group   Unitary
  * @author  Jefersson Nathan <malukenho@phpse.net>
  * @license MIT
+ *
+ * @covers  \DocHeader\Filter\ReplaceCurrentYearPlaceholder
  */
-final class CurrentYear implements FilterInterface
+final class ReplaceCurrentYearPlaceholderTest extends \PHPUnit_Framework_TestCase
 {
-    const CURRENT_YEAR = '%year%';
-
     /**
-     * {@inheritDoc}
+     * @test
      */
-    public function __invoke($docheader)
+    public function it_should_replace_the_year_tag_by_current_year()
     {
-        return str_replace(self::CURRENT_YEAR, date('Y'), $docheader);
+        $filter = new ReplaceCurrentYearPlaceholder();
+        $docheader = 'Current Year -> %year%';
+
+        $this->assertInstanceOf(FilterInterface::class, $filter);
+
+        $this->assertSame('Current Year -> ' . date('Y'), $filter->__invoke($docheader));
+        $this->assertSame(date('Y'), $filter->__invoke('%year%'));
     }
 }

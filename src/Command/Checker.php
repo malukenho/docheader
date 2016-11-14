@@ -59,8 +59,7 @@ final class Checker extends Command
         /* @var $file \Symfony\Component\Finder\SplFileInfo */
         foreach ($finder as $directory) {
             foreach ($directory as $file) {
-                if (! $validator->__invoke($file->getContents())
-                    && false === strpos($file->getContents(), $this->header)) {
+                if ($this->docIsNotCompatible($validator, $file->getContents())) {
                     defined('FAILED') ?: define('FAILED', 1);
                     $output->writeln('-> ' . $file->getRelativePathname());
                 }
@@ -75,5 +74,12 @@ final class Checker extends Command
         }
 
         $output->writeln('<bg=green;fg=white>    Everything is OK!     </>');
+    }
+
+    private function docIsNotCompatible($headerValidator, $fileContent)
+    {
+        return (! $headerValidator->__invoke($fileContent)
+                && false === strpos($fileContent, $this->header)
+            ) || false === strpos($fileContent, $this->header);
     }
 }

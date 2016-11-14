@@ -22,9 +22,9 @@ namespace DocHeader\Validator;
  * @author  Jefersson Nathan <malukenho@phpse.net>
  * @license MIT
  */
-final class Regex
+final class RegExp
 {
-    const TAG_BEGIN = '%re:';
+    const TAG_BEGIN = '%regexp:';
     const TAG_END   = '%';
 
     /**

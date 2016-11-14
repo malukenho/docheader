@@ -18,7 +18,7 @@
 namespace DocHeader\Command;
 
 use DocHeader\Helper\FileResolve;
-use DocHeader\Validator\Regex;
+use DocHeader\Validator\RegExp;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -54,7 +54,7 @@ final class Checker extends Command
     {
         $directory = $input->getArgument('directory');
         $finder    = (new FileResolve($directory))->__invoke();
-        $validator = new Regex($this->header);
+        $validator = new RegExp($this->header);
 
         /* @var $file \Symfony\Component\Finder\SplFileInfo */
         foreach ($finder as $directory) {

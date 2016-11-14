@@ -17,7 +17,7 @@
  */
 namespace DocHeaderTest\Validator;
 
-use DocHeader\Validator\Regex;
+use DocHeader\Validator\RegExp;
 
 /**
  * Tests for {@see \DocHeader\Validator\Regex}.
@@ -26,7 +26,7 @@ use DocHeader\Validator\Regex;
  * @author  Jefersson Nathan <malukenho@phpse.net>
  * @license MIT
  *
- * @covers  \DocHeader\Validator\Regex
+ * @covers  \DocHeader\Validator\RegExp
  */
 final class RegexTest extends \PHPUnit_Framework_TestCase
 {
@@ -36,7 +36,7 @@ final class RegexTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_assert_given_regex_on_content($regex, $content)
     {
-        $filter = new Regex($regex);
+        $filter = new RegExp($regex);
 
         $this->assertTrue(
             $filter->__invoke($content),
@@ -50,7 +50,7 @@ final class RegexTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_not_assert_given_regex_on_content($regex, $content)
     {
-        $filter = new Regex($regex);
+        $filter = new RegExp($regex);
 
         $this->assertFalse($filter->__invoke($content));
     }
@@ -58,25 +58,25 @@ final class RegexTest extends \PHPUnit_Framework_TestCase
     public function valid_regex_and_content()
     {
         return [
-            'Space around content' => ['Heya %re:\d{2}%', '             Heya 12            '],
-            'Content' => ['Heya %re:\d{2}+%', 'If you are reading it? Heya 12, you should buy me sushi.'],
-            'Number' => ['Heya %re:\d{2}%', 'Heya 12'],
-            'Mixed chars' => ['Heya %re:\d{2}-\d{1}\w\s+%', 'Heya 12-1a '],
-            'Year format' => ['Heya %re:20\d{2}%', 'Heya 2020'],
-            'Year format 2' => ['Heya 20%re:\d{2}%', 'Heya 2020'],
-            'Year format 3' => ['Heya %re:20\d{2}%-%year%', 'Heya 2020-%year%'],
-            'Multiple regex' => ['Heya %re:20\d{2}%-%year% %re:19-\d{1}%', 'Heya 2099-%year% 19-1'],
-            'Max Number chars 1' => ['Heya %re:\d{1,2}%', 'Heya 2'],
-            'Max Number chars 2' => ['Heya %re:\d{1,2}%', 'Heya 12'],
+            'Space around content' => ['Heya %regexp:\d{2}%', '             Heya 12            '],
+            'Content' => ['Heya %regexp:\d{2}+%', 'If you are reading it? Heya 12, you should buy me sushi.'],
+            'Number' => ['Heya %regexp:\d{2}%', 'Heya 12'],
+            'Mixed chars' => ['Heya %regexp:\d{2}-\d{1}\w\s+%', 'Heya 12-1a '],
+            'Year format' => ['Heya %regexp:20\d{2}%', 'Heya 2020'],
+            'Year format 2' => ['Heya 20%regexp:\d{2}%', 'Heya 2020'],
+            'Year format 3' => ['Heya %regexp:20\d{2}%-%year%', 'Heya 2020-%year%'],
+            'Multiple regex' => ['Heya %regexp:20\d{2}%-%year% %regexp:19-\d{1}%', 'Heya 2099-%year% 19-1'],
+            'Max Number chars 1' => ['Heya %regexp:\d{1,2}%', 'Heya 2'],
+            'Max Number chars 2' => ['Heya %regexp:\d{1,2}%', 'Heya 12'],
         ];
     }
 
     public function invalid_regex_and_content()
     {
         return [
-            'Space around content' => ['Heya %re:\d{2}+%', '             Heya 1 23            '],
-            'Content' => ['Heya %re:\d{2}+%', 'If you are reading it? Heya 1a2, you should buy me sushi.'],
-            'No Content' => ['%re:\d{2}+%', ''],
+            'Space around content' => ['Heya %regexp:\d{2}+%', '             Heya 1 23            '],
+            'Content' => ['Heya %regexp:\d{2}+%', 'If you are reading it? Heya 1a2, you should buy me sushi.'],
+            'No Content' => ['%regexp:\d{2}+%', ''],
         ];
     }
 }

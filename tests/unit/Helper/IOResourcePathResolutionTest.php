@@ -17,13 +17,13 @@
  */
 namespace DocHeaderTest\Helper;
 
-use DocHeader\Helper\FileResolve;
+use DocHeader\Helper\IOResourcePathResolution;
 
 /**
  * @author  Jefersson Nathan  <malukenho@phpse.net>
  * @license MIT
  */
-final class FileResolveTest extends \PHPUnit_Framework_TestCase
+final class IOResourcePathResolutionTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
@@ -33,9 +33,9 @@ final class FileResolveTest extends \PHPUnit_Framework_TestCase
         $pathList,
         $fileCount
     ) {
-        $resolver = new FileResolve($pathList);
+        $resolver = new IOResourcePathResolution($pathList);
 
-        $this->assertInstanceOf(FileResolve::class, $resolver);
+        $this->assertInstanceOf(IOResourcePathResolution::class, $resolver);
 
         $result = $resolver->__invoke();
 

@@ -60,19 +60,17 @@ final class Regex
         $matchable = $this->pattern;
 
         /* @var $matches array[] */
-        foreach ($matches[1] as $k => $match) {
-            $sentence = $matches[0][$k];
-
-            $matchable = str_replace($sentence, sha1($match), $matchable);
+        foreach ($matches[0] as $k => $match) {
+            $matchable = str_replace($match, sha1($match . $k), $matchable);
         }
 
         $protected = preg_quote($matchable);
 
         /* @var $matches array[] */
         foreach ($matches[1] as $k => $match) {
-            $matchable = str_replace(sha1($match), $match, $protected);
+            $protected = str_replace(preg_quote(sha1($matches[0][$k] . $k)), $match, $protected);
         }
 
-        return (bool) preg_match('#' . $matchable . '#', $docheader, $m);
+        return (bool) preg_match('#' . $protected . '#', $docheader, $m);
     }
 }

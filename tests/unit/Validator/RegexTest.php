@@ -76,6 +76,7 @@ final class RegexTest extends \PHPUnit_Framework_TestCase
         return [
             'Space around content' => ['Heya %re:\d{2}+%', '             Heya 1 23            '],
             'Content' => ['Heya %re:\d{2}+%', 'If you are reading it? Heya 1a2, you should buy me sushi.'],
+            'No Content' => ['%re:\d{2}+%', ''],
         ];
     }
 }

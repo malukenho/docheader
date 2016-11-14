@@ -63,13 +63,16 @@ final class Regex
         foreach ($matches[1] as $k => $match) {
             $sentence = $matches[0][$k];
 
-            $matchable = str_replace($sentence, $match, $matchable);
+            $matchable = str_replace($sentence, sha1($match), $matchable);
         }
 
-        if (! preg_match('{' . $matchable . '}', $docheader, $m)) {
-            return false;
+        $protected = preg_quote($matchable);
+
+        /* @var $matches array[] */
+        foreach ($matches[1] as $k => $match) {
+            $matchable = str_replace(sha1($match), $match, $protected);
         }
 
-        return true;
+        return (bool) preg_match('#' . $matchable . '#', $docheader, $m);
     }
 }

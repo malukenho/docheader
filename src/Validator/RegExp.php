@@ -71,6 +71,6 @@ final class RegExp
             $protected = str_replace(preg_quote(sha1($matches[0][$k] . $k)), $match, $protected);
         }
 
-        return (bool) preg_match('#' . $protected . '#', $docheader, $m);
+        return (bool) preg_match('#' . $protected . '#', $docheader);
     }
 }

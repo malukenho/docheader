@@ -37,9 +37,8 @@ if (! is_file('.docheader')) {
     throw \DocHeader\Command\Exception\DocHeaderFileConfiguration::notFound();
 }
 
-// TODO: Create a way to apply filters
-$header = str_replace('%year%', date('Y'), file_get_contents('.docheader'));
+$filters = new DocHeader\Filter\Filter(file_get_contents('.docheader'));
 
 $application = new Application();
-$application->add(new \DocHeader\Command\Checker(null, $header));
+$application->add(new \DocHeader\Command\Checker(null, $filters->applyFilters()));
 $application->run();

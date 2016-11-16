@@ -17,6 +17,9 @@
  */
 namespace DocHeader\Command\Exception;
 
+/**
+ * @author Jefersson Nathan <malukenho@phpse.net>
+ */
 final class DocHeaderFileConfiguration extends \Exception
 {
     public static function notFound()

@@ -15,16 +15,36 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  */
-
-namespace DocHeader\Command\Exception;
+namespace DocHeaderTest\Filter;
+use DocHeader\Filter\Filter;
 
 /**
- * @author Jefersson Nathan <malukenho@phpse.net>
+ * Tests for {@see \DocHeader\Filter\Filter}.
+ *
+ * @group   Unitary
+ * @author  Jefersson Nathan <malukenho@phpse.net>
+ * @license MIT
+ *
+ * @covers  \DocHeader\Filter\Filter
  */
-final class DirectoryException extends \Exception
+final class FilterTest extends \PHPUnit_Framework_TestCase
 {
-    public static function notFound($directory)
+    /**
+     * @test
+     */
+    public function it_should_have_replace_current_year_placeholder_as_default_filter()
     {
-        return new self(sprintf('Directory "%s" could not be found.', $directory));
+        $this->assertClassHasAttribute('dockBlockDefaultFilters', Filter::class);
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_apply_default_filters_to_given_docheader()
+    {
+        $docBlock = 'Year %year%';
+        $filter = new Filter($docBlock);
+
+        $this->assertSame('Year ' . date('Y'), $filter->applyFilters());
     }
 }

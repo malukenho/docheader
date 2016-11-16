@@ -19,7 +19,7 @@
         <directory suffix=".phpt">./tests/functional</directory>
     </testsuite>
     <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
+        <whitelist>
             <directory suffix=".php">./src</directory>
         </whitelist>
     </filter>

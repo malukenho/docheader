@@ -15,16 +15,36 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  */
+namespace DocHeaderTest\Command\Exception;
 
-namespace DocHeader\Command\Exception;
+use DocHeader\Command\Exception\DirectoryException;
 
 /**
- * @author Jefersson Nathan <malukenho@phpse.net>
+ * Tests for {@see \DocHeader\Command\Exception\DirectoryException}.
+ *
+ * @group   Unitary
+ * @author  Jefersson Nathan <malukenho@phpse.net>
+ * @license MIT
+ *
+ * @covers  \DocHeader\Command\Exception\DirectoryException
  */
-final class DirectoryException extends \Exception
+final class DirectoryExceptionTest extends \PHPUnit_Framework_TestCase
 {
-    public static function notFound($directory)
+    /**
+     * @test
+     */
+    public function it_should_throw_exception_for_directory_not_found()
     {
-        return new self(sprintf('Directory "%s" could not be found.', $directory));
+        $sut = DirectoryException::notFound('foo');
+
+        $this->assertInstanceOf(DirectoryException::class, $sut);
+        $this->assertSame(
+            'Directory "foo" could not be found.',
+            $sut->getMessage()
+        );
+
+        $this->setExpectedException(DirectoryException::class);
+
+        throw $sut;
     }
 }

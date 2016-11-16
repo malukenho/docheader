@@ -44,6 +44,8 @@ and then run the checker:
 
 So, you get errors or a message saying that everything is ok!
 
+# Current year placeholder
+
 You can also put `%year%` on your `.docheader` file to refer to the current
 Year, like that:
 
@@ -52,3 +54,17 @@ Year, like that:
  * @copyright Copyright (c) 2005-%year% Zend Technologies USA Inc. (http://www.zend.com)
  */
 ```
+
+# Regex assertion
+
+If you're using `>=0.1.5` version, you can use the `%regex:%` placeholder to match some content.
+
+Example:
+
+```php
+/**
+ * @copyright Copyright (c) 20%regex:\d{2}%-2016 Zend Technologies USA Inc. (http://www.zend.com)
+ */
+```
+
+In this case `%regex:\d{2}%` assert that it should be a number of two digits between `20` and `-`.

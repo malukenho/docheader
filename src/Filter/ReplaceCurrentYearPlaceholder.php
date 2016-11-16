@@ -16,15 +16,21 @@
  * and is licensed under the MIT license.
  */
 
-namespace DocHeader\Command\Exception;
+namespace DocHeader\Filter;
 
 /**
- * @author Jefersson Nathan <malukenho@phpse.net>
+ * @author  Jefersson Nathan <malukenho@phpse.net>
+ * @license MIT
  */
-final class DirectoryException extends \Exception
+final class ReplaceCurrentYearPlaceholder implements FilterInterface
 {
-    public static function notFound($directory)
+    const CURRENT_YEAR = '%year%';
+
+    /**
+     * {@inheritDoc}
+     */
+    public function __invoke($docheader)
     {
-        return new self(sprintf('Directory "%s" could not be found.', $directory));
+        return str_replace(self::CURRENT_YEAR, date('Y'), $docheader);
     }
 }

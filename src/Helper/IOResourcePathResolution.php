@@ -23,7 +23,7 @@ use Symfony\Component\Finder\Finder;
  * @author Jefersson Nathan  <malukenho@phpse.net>
  * @license MIT
  */
-final class FileResolve
+final class IOResourcePathResolution
 {
     /**
      * @var string

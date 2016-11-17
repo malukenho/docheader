@@ -55,6 +55,16 @@ final class RegexTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($filter->__invoke($content));
     }
 
+    /**
+     * @test
+     */
+    public function it_should_return_false_if_header_does_not_have_regex_placeholder()
+    {
+        $filter = new RegExp('No regex');
+
+        $this->assertFalse($filter->__invoke('No regex'));
+    }
+
     public function valid_regex_and_content()
     {
         return [

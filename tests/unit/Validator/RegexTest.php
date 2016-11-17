@@ -55,6 +55,16 @@ final class RegexTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($filter->__invoke($content));
     }
 
+    /**
+     * @test
+     */
+    public function it_should_return_false_if_header_does_not_have_regex_placeholder()
+    {
+        $filter = new RegExp('No regex');
+
+        $this->assertFalse($filter->__invoke('No regex'));
+    }
+
     public function valid_regex_and_content()
     {
         return [
@@ -65,6 +75,10 @@ final class RegexTest extends \PHPUnit_Framework_TestCase
             'Year format' => ['Heya %regexp:20\d{2}%', 'Heya 2020'],
             'Year format 2' => ['Heya 20%regexp:\d{2}%', 'Heya 2020'],
             'Year format 3' => ['Heya %regexp:20\d{2}%-%year%', 'Heya 2020-%year%'],
+            'Year format 4' => ['Heya 20%regexp:\d{2}%-%year%', 'Heya 2020-%year%'],
+            'Year format 5' => ['Heya 20%regexp:\d\d%-%year%', 'Heya 2020-%year%'],
+            'Year format 6' => ['Heya 20%regexp:\\d\\d%-%year%', 'Heya 2020-%year%'],
+            'Year format 7' => ['Heya 20%regexp:[0-9][0-9]%-%year%', 'Heya 2020-%year%'],
             'Multiple regex' => ['Heya %regexp:20\d{2}%-%year% %regexp:19-\d{1}%', 'Heya 2099-%year% 19-1'],
             'Max Number chars 1' => ['Heya %regexp:\d{1,2}%', 'Heya 2'],
             'Max Number chars 2' => ['Heya %regexp:\d{1,2}%', 'Heya 12'],

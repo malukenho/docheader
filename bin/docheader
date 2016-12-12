@@ -4,24 +4,17 @@
 use Symfony\Component\Console\Application;
 
 call_user_func(function () {
-    $autoload = [
-        __DIR__ . '/../../../autoload.php',
-        __DIR__ . '/../../autoload.php',
-        __DIR__ . '/../vendor/autoload.php',
-        __DIR__ . '/vendor/autoload.php'
-    ];
+    $autoload = array_filter(
+        [
+            __DIR__ . '/../../../autoload.php',
+            __DIR__ . '/../../autoload.php',
+            __DIR__ . '/../vendor/autoload.php',
+            __DIR__ . '/vendor/autoload.php'
+        ],
+        'is_file'
+    );
 
-    foreach ($autoload as $file) {
-        if (file_exists($file)) {
-            define('COMPOSER_INSTALLED', $file);
-
-            break;
-        }
-    }
-
-    unset($file);
-
-    if (! defined('COMPOSER_INSTALLED')) {
+    if (! count($autoload)) {
         fwrite(
             STDERR,
             'You need to set up the project dependencies using the following commands:' . PHP_EOL .
@@ -33,7 +26,7 @@ call_user_func(function () {
     }
 
     /** @noinspection PhpIncludeInspection */
-    require COMPOSER_INSTALLED;
+    require current($autoload);
 
     if (! is_file('.docheader')) {
         throw \DocHeader\Command\Exception\DocHeaderFileConfiguration::notFound();

@@ -29,6 +29,7 @@ if (! defined('COMPOSER_INSTALLED')) {
     die(1);
 }
 
+/** @noinspection PhpIncludeInspection */
 require COMPOSER_INSTALLED;
 
 use Symfony\Component\Console\Application;

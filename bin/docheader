@@ -1,45 +1,48 @@
 #!/usr/bin/env php
 <?php
 
-$autoload = [
-    __DIR__ . '/../../../autoload.php',
-    __DIR__ . '/../../autoload.php',
-    __DIR__ . '/../vendor/autoload.php',
-    __DIR__ . '/vendor/autoload.php'
-];
-
-foreach ($autoload as $file) {
-    if (file_exists($file)) {
-        define('COMPOSER_INSTALLED', $file);
-
-        break;
-    }
-}
-
-unset($file);
-
-if (! defined('COMPOSER_INSTALLED')) {
-    fwrite(
-        STDERR,
-        'You need to set up the project dependencies using the following commands:' . PHP_EOL .
-        'wget http://getcomposer.org/composer.phar' . PHP_EOL .
-        'php composer.phar install' . PHP_EOL
-    );
-
-    die(1);
-}
-
-/** @noinspection PhpIncludeInspection */
-require COMPOSER_INSTALLED;
-
 use Symfony\Component\Console\Application;
 
-if (! is_file('.docheader')) {
-    throw \DocHeader\Command\Exception\DocHeaderFileConfiguration::notFound();
-}
+call_user_func(function () {
+    $autoload = [
+        __DIR__ . '/../../../autoload.php',
+        __DIR__ . '/../../autoload.php',
+        __DIR__ . '/../vendor/autoload.php',
+        __DIR__ . '/vendor/autoload.php'
+    ];
 
-$filters = new DocHeader\Filter\Filter(file_get_contents('.docheader'));
+    foreach ($autoload as $file) {
+        if (file_exists($file)) {
+            define('COMPOSER_INSTALLED', $file);
 
-$application = new Application();
-$application->add(new \DocHeader\Command\Checker(null, $filters->applyFilters()));
-$application->run();
+            break;
+        }
+    }
+
+    unset($file);
+
+    if (! defined('COMPOSER_INSTALLED')) {
+        fwrite(
+            STDERR,
+            'You need to set up the project dependencies using the following commands:' . PHP_EOL .
+            'wget http://getcomposer.org/composer.phar' . PHP_EOL .
+            'php composer.phar install' . PHP_EOL
+        );
+
+        die(1);
+    }
+
+    /** @noinspection PhpIncludeInspection */
+    require COMPOSER_INSTALLED;
+
+    if (! is_file('.docheader')) {
+        throw \DocHeader\Command\Exception\DocHeaderFileConfiguration::notFound();
+    }
+
+    $filters = new DocHeader\Filter\Filter(file_get_contents('.docheader'));
+
+    $application = new Application();
+    $application->add(new \DocHeader\Command\Checker(null, $filters->applyFilters()));
+
+    $application->run();
+});

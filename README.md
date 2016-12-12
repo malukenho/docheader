@@ -55,16 +55,16 @@ Year, like that:
  */
 ```
 
-# Regex assertion
+# Regexp assertion
 
-If you're using `>=0.1.5` version, you can use the `%regex:%` placeholder to match some content.
+If you're using `>=0.1.5` version, you can use the `%regexp:%` placeholder to match some content.
 
 Example:
 
 ```php
 /**
- * @copyright Copyright (c) 20%regex:\d{2}%-2016 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 20%regexp:\d{2}%-2016 Zend Technologies USA Inc. (http://www.zend.com)
  */
 ```
 
-In this case `%regex:\d{2}%` assert that it should be a number of two digits between `20` and `-`.
+In this case `%regexp:\d{2}%` assert that it should be a number of two digits between `20` and `-`.

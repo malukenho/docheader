@@ -13,7 +13,7 @@
         columns="max"
 >
     <testsuite name="DocHeader tests">
-        <directory>./tests</directory>
+        <directory>./tests/unit</directory>
     </testsuite>
     <testsuite name="DocHeader functional tests">
         <directory suffix=".phpt">./tests/functional</directory>

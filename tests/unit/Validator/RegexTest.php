@@ -79,6 +79,8 @@ final class RegexTest extends \PHPUnit_Framework_TestCase
             'Year format 5' => ['Heya 20%regexp:\d\d%-%year%', 'Heya 2020-%year%'],
             'Year format 6' => ['Heya 20%regexp:\\d\\d%-%year%', 'Heya 2020-%year%'],
             'Year format 7' => ['Heya 20%regexp:[0-9][0-9]%-%year%', 'Heya 2020-%year%'],
+            'Year format 8' => ['Heya 20%regexp:(\d{2}?)%-%year%', 'Heya 2020-%year%'],
+            'Year format 9' => ['Heya 20%regexp:(\d{2})?%-%year%', 'Heya 20-%year%'],
             'Multiple regex' => ['Heya %regexp:20\d{2}%-%year% %regexp:19-\d{1}%', 'Heya 2099-%year% 19-1'],
             'Max Number chars 1' => ['Heya %regexp:\d{1,2}%', 'Heya 2'],
             'Max Number chars 2' => ['Heya %regexp:\d{1,2}%', 'Heya 12'],

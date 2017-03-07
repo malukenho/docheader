@@ -54,16 +54,23 @@ final class Checker extends Command
                 'exclude-dir',
                 null,
                 InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
-                'File or Directory to exclude'
+                'Prevent directory to be used when check for doc headers'
+            )
+            ->addOption(
+                'exclude',
+                null,
+                InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+                'Prevent file to be used when check for doc headers'
             );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $directory         = $input->getArgument('directory');
-        $excludedResources = $input->getOption('exclude-dir') ?: [];
-        $finder            = (new IOResourcePathResolution($directory, $excludedResources))->__invoke();
-        $validator         = new RegExp($this->header);
+        $directory           = $input->getArgument('directory');
+        $excludedDirectories = $input->getOption('exclude-dir') ?: [];
+        $excludedFiles       = $input->getOption('exclude') ?: [];
+        $finder              = (new IOResourcePathResolution($directory, $excludedDirectories, $excludedFiles))->__invoke();
+        $validator           = new RegExp($this->header);
 
         /* @var $file \Symfony\Component\Finder\SplFileInfo */
         foreach ($finder as $directoryList) {

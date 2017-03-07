@@ -33,7 +33,7 @@ final class IOResourcePathResolutionTest extends \PHPUnit_Framework_TestCase
         $pathList,
         $fileCount
     ) {
-        $resolver = new IOResourcePathResolution($pathList);
+        $resolver = new IOResourcePathResolution($pathList, []);
 
         $this->assertInstanceOf(IOResourcePathResolution::class, $resolver);
 

@@ -27,7 +27,6 @@ $command->run(
 ?>
 --EXPECTF--
 -> CorrectRegexHeader.php
--> FileWithOldYearLicense.php
 -> MissingHeader.php
 
     Something goes wrong!

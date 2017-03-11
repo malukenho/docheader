@@ -54,13 +54,15 @@ final class Checker extends Command
                 'exclude-dir',
                 null,
                 InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
-                'Prevent directory to be used when check for doc headers'
+                'Exclude the specified directory from being scanned; declare multiple directories ' .
+                'with multiple invocations of this option.'
             )
             ->addOption(
                 'exclude',
                 null,
                 InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
-                'Prevent file to be used when check for doc headers'
+                'Exclude the specified file from being scanned; declare multiple files with multiple ' .
+                'invocations of this option.'
             );
     }
 
@@ -73,8 +75,8 @@ final class Checker extends Command
         $validator           = new RegExp($this->header);
 
         /* @var $file \Symfony\Component\Finder\SplFileInfo */
-        foreach ($finder as $directoryList) {
-            foreach ($directoryList as $file) {
+        foreach ($finder as $dir) {
+            foreach ($dir as $file) {
                 if (! $this->docIsCompatible($validator, $file->getContents())) {
                     defined('FAILED') ?: define('FAILED', 1);
                     $output->writeln('-> ' . $file->getRelativePathname());

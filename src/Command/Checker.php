@@ -54,15 +54,15 @@ final class Checker extends Command
                 'exclude-dir',
                 null,
                 InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
-                'Exclude the specified directory from being scanned; declare multiple directories ' .
-                'with multiple invocations of this option.'
+                'Exclude the specified directory from being scanned; declare multiple directories '
+                . 'with multiple invocations of this option.'
             )
             ->addOption(
                 'exclude',
                 null,
                 InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
-                'Exclude the specified file from being scanned; declare multiple files with multiple ' .
-                'invocations of this option.'
+                'Exclude the specified file from being scanned; declare multiple files with multiple '
+                . 'invocations of this option.'
             );
     }
 

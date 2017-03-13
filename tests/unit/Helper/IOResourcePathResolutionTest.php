@@ -15,6 +15,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  */
+
 namespace DocHeaderTest\Helper;
 
 use DocHeader\Helper\IOResourcePathResolution;
@@ -29,11 +30,9 @@ final class IOResourcePathResolutionTest extends \PHPUnit_Framework_TestCase
      * @test
      * @dataProvider directories_and_files
      */
-    public function it_should_return_a_finder_instance_with_directory_and_files(
-        $pathList,
-        $fileCount
-    ) {
-        $resolver = new IOResourcePathResolution($pathList);
+    public function it_should_return_a_finder_instance_with_directory_and_files($pathList, $excludeDir, $excludeFile, $fileCount)
+    {
+        $resolver = new IOResourcePathResolution($pathList, $excludeDir, $excludeFile);
 
         $this->assertInstanceOf(IOResourcePathResolution::class, $resolver);
 
@@ -47,6 +46,8 @@ final class IOResourcePathResolutionTest extends \PHPUnit_Framework_TestCase
         return [
             [
                 [__DIR__ . '/../Helper/FileResolveTest.php'],
+                [],
+                [],
                 1,
             ],
             [
@@ -54,7 +55,39 @@ final class IOResourcePathResolutionTest extends \PHPUnit_Framework_TestCase
                     __DIR__ . '/../Helper/',
                     __DIR__ . '/../Helper/FileResolveTest.php',
                 ],
+                [],
+                [],
                 2,
+            ],
+            [
+                [
+                    __DIR__ . '/../Helper/',
+                ],
+                [],
+                [],
+                1,
+            ],
+            [
+                [
+                    __DIR__ . '/../Helper/',
+                    __DIR__ . '/../Helper/FileResolveTest.php',
+                ],
+                [
+                    'Helper/',
+                ],
+                [],
+                2,
+            ],
+
+            [
+                [
+                    __DIR__ . '/../Helper/',
+                ],
+                [],
+                [
+                    'FileResolveTest.php',
+                ],
+                1,
             ],
         ];
     }

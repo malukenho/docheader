@@ -15,6 +15,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  */
+
 namespace DocHeader\Command;
 
 use DocHeader\Helper\IOResourcePathResolution;
@@ -22,6 +23,7 @@ use DocHeader\Validator\RegExp;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 final class Checker extends Command
@@ -47,18 +49,34 @@ final class Checker extends Command
                 'directory',
                 InputArgument::IS_ARRAY | InputArgument::REQUIRED,
                 'Directory to scan *.php files'
+            )
+            ->addOption(
+                'exclude-dir',
+                null,
+                InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+                'Exclude the specified directory from being scanned; declare multiple directories '
+                . 'with multiple invocations of this option.'
+            )
+            ->addOption(
+                'exclude',
+                null,
+                InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+                'Exclude the specified file from being scanned; declare multiple files with multiple '
+                . 'invocations of this option.'
             );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $directory = $input->getArgument('directory');
-        $finder    = (new IOResourcePathResolution($directory))->__invoke();
-        $validator = new RegExp($this->header);
+        $directory           = $input->getArgument('directory');
+        $excludedDirectories = $input->getOption('exclude-dir') ?: [];
+        $excludedFiles       = $input->getOption('exclude') ?: [];
+        $finder              = (new IOResourcePathResolution($directory, $excludedDirectories, $excludedFiles))->__invoke();
+        $validator           = new RegExp($this->header);
 
         /* @var $file \Symfony\Component\Finder\SplFileInfo */
-        foreach ($finder as $directory) {
-            foreach ($directory as $file) {
+        foreach ($finder as $dir) {
+            foreach ($dir as $file) {
                 if (! $this->docIsCompatible($validator, $file->getContents())) {
                     defined('FAILED') ?: define('FAILED', 1);
                     $output->writeln('-> ' . $file->getRelativePathname());

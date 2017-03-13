@@ -29,13 +29,25 @@ final class IOResourcePathResolution
      * @var string
      */
     private $directoryOrFile;
+    /**
+     * @var string[]
+     */
+    private $excludedDirectory;
+    /**
+     * @var string[]
+     */
+    private $excludedFiles;
 
     /**
      * @param array $directoryOrFile
+     * @param array $excludedDirectory
+     * @param array $excludedFiles
      */
-    public function __construct(array $directoryOrFile)
+    public function __construct(array $directoryOrFile, array $excludedDirectory, array $excludedFiles)
     {
-        $this->directoryOrFile = $directoryOrFile;
+        $this->directoryOrFile   = $directoryOrFile;
+        $this->excludedDirectory = $excludedDirectory;
+        $this->excludedFiles     = $excludedFiles;
     }
 
     private function getDirectory($directoryOrFile)
@@ -57,10 +69,18 @@ final class IOResourcePathResolution
     {
         return array_map(
             function ($directoryOrFile) {
-                return Finder::create()
+                $finder = Finder::create()
                     ->files()
-                    ->in($this->getDirectory($directoryOrFile))
-                    ->name($this->getFeatureMatch($directoryOrFile));
+                    ->ignoreDotFiles(true)
+                    ->in(rtrim($this->getDirectory($directoryOrFile), '/'))
+                    ->name($this->getFeatureMatch($directoryOrFile))
+                    ->exclude($this->excludedDirectory);
+
+                foreach ($this->excludedFiles as $pattern) {
+                    $finder->notPath($pattern);
+                }
+
+                return $finder;
             },
             $this->directoryOrFile
         );

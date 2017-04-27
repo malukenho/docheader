@@ -5,22 +5,12 @@ Check directory and ignore one file
 
 require __DIR__ . '/init.php';
 
-$command = new \DocHeader\Command\Checker(
-    null,
-    <<<'DOCHEADER'
-/*
- * Date: %regexp:\d{2}\.\d{2}.20\d{2}%
- * Year: 20%regexp:\d{2}%
- * Hour: %regexp:[0-1]{2}%:%regexp:[1]%0:%regexp:[2-3]{2}%
- *
- * @%regexp:license MIT%
- */
-DOCHEADER
+$docheader = __DIR__ . '/.docheader-check-directories-and-exclude-one-file';
 
-);
+$command = new \DocHeader\Command\Checker(null);
 
 $command->run(
-    new Symfony\Component\Console\Input\StringInput('check tests/assets/ --exclude CorrectHeader.php'),
+    new Symfony\Component\Console\Input\StringInput('check tests/assets/ --exclude CorrectHeader.php --docheader ' . $docheader),
     new Symfony\Component\Console\Output\StreamOutput(fopen('php://stdout', 'w'))
 );
 

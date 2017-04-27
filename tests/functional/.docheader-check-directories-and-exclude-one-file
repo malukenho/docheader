@@ -1,0 +1,7 @@
+/*
+ * Date: %regexp:\d{2}\.\d{2}.20\d{2}%
+ * Year: 20%regexp:\d{2}%
+ * Hour: %regexp:[0-1]{2}%:%regexp:[1]%0:%regexp:[2-3]{2}%
+ *
+ * @%regexp:license MIT%
+ */

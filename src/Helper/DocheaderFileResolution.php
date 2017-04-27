@@ -32,7 +32,7 @@ final class DocheaderFileResolution
      *
      * @return string
      */
-    public function __invoke($pathOrFile)
+    public function resolve($pathOrFile)
     {
         if (is_dir($pathOrFile)) {
             $pathOrFile .= '/.docheader';

@@ -104,13 +104,7 @@ final class Checker extends Command
     private function getDocheaderFileContent(InputInterface $input)
     {
         $docheaderFile = $input->getOption('docheader');
-
-        if ('.docheader' === $docheaderFile) {
-            $docheaderFile = getcwd() . '/' . $docheaderFile;
-        }
-
-        $docheader = (new DocheaderFileResolution())->__invoke($docheaderFile);
-
+        $docheader = (new DocheaderFileResolution())->resolve($docheaderFile);
         $filter = new Filter(file_get_contents($docheader));
 
         return $filter->apply();

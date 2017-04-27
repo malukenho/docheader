@@ -35,11 +35,11 @@ final class DocHeaderFileConfigurationTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_throw_exception_for_directory_not_found()
     {
-        $sut = DocHeaderFileConfiguration::notFound();
+        $sut = DocHeaderFileConfiguration::notFound('/tmp');
 
         $this->assertInstanceOf(DocHeaderFileConfiguration::class, $sut);
         $this->assertSame(
-            'Configuration file ".docheader" could not be found.',
+            'Configuration file ".docheader" could not be found on /tmp.',
             $sut->getMessage()
         );
 

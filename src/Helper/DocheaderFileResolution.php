@@ -35,7 +35,7 @@ final class DocheaderFileResolution
     public function resolve($pathOrFile)
     {
         if (is_dir($pathOrFile)) {
-            $pathOrFile .= '/.docheader';
+            $pathOrFile .= DIRECTORY_SEPARATOR . '.docheader';
         }
 
         if (! is_file($pathOrFile)) {

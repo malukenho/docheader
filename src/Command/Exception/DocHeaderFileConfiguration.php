@@ -22,8 +22,13 @@ namespace DocHeader\Command\Exception;
  */
 final class DocHeaderFileConfiguration extends \Exception
 {
-    public static function notFound()
+    /**
+     * @param string $pathOrFile
+     *
+     * @return DocHeaderFileConfiguration
+     */
+    public static function notFound($pathOrFile)
     {
-        return new self(sprintf('Configuration file ".docheader" could not be found.'));
+        return new self(sprintf('Configuration file ".docheader" could not be found on %s.', $pathOrFile));
     }
 }

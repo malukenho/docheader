@@ -18,6 +18,8 @@
 
 namespace DocHeader\Command;
 
+use DocHeader\Filter\Filter;
+use DocHeader\Helper\DocheaderFileResolution;
 use DocHeader\Helper\IOResourcePathResolution;
 use DocHeader\Validator\RegExp;
 use Symfony\Component\Console\Command\Command;
@@ -26,20 +28,11 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * @author Jefersson Nathan <malukenho@phpse.net>
+ */
 final class Checker extends Command
 {
-    /**
-     * @var string
-     */
-    private $header;
-
-    public function __construct($name, $header)
-    {
-        parent::__construct(null);
-
-        $this->header = $header;
-    }
-
     protected function configure()
     {
         $this
@@ -63,28 +56,37 @@ final class Checker extends Command
                 InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
                 'Exclude the specified file from being scanned; declare multiple files with multiple '
                 . 'invocations of this option.'
+            )
+            ->addOption(
+                'docheader',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'Specify a docheader template file',
+                '.docheader'
             );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $docheaderFile       = $this->getDocheaderFileContent($input);
         $directory           = $input->getArgument('directory');
         $excludedDirectories = $input->getOption('exclude-dir') ?: [];
         $excludedFiles       = $input->getOption('exclude') ?: [];
         $finder              = (new IOResourcePathResolution($directory, $excludedDirectories, $excludedFiles))->__invoke();
-        $validator           = new RegExp($this->header);
+        $validator           = new RegExp($docheaderFile);
 
+        $success = true;
         /* @var $file \Symfony\Component\Finder\SplFileInfo */
         foreach ($finder as $dir) {
             foreach ($dir as $file) {
-                if (! $this->docIsCompatible($validator, $file->getContents())) {
-                    defined('FAILED') ?: define('FAILED', 1);
+                if (! $this->docIsCompatible($validator, $file->getContents(), $docheaderFile)) {
+                    $success = false;
                     $output->writeln('-> ' . $file->getRelativePathname());
                 }
             }
         }
 
-        if (defined('FAILED')) {
+        if (! $success) {
             $output->writeln('');
             $output->writeln('<bg=red;fg=white>    Something goes wrong!     </>');
 
@@ -94,8 +96,17 @@ final class Checker extends Command
         $output->writeln('<bg=green;fg=white>    Everything is OK!     </>');
     }
 
-    private function docIsCompatible($headerValidator, $fileContent)
+    private function docIsCompatible($headerValidator, $fileContent, $docheaderFile)
     {
-        return $headerValidator->__invoke($fileContent) || false !== strpos($fileContent, $this->header);
+        return $headerValidator->__invoke($fileContent) || false !== strpos($fileContent, $docheaderFile);
+    }
+
+    private function getDocheaderFileContent(InputInterface $input)
+    {
+        $docheaderFile = $input->getOption('docheader');
+        $docheader = (new DocheaderFileResolution())->resolve($docheaderFile);
+        $filter = new Filter(file_get_contents($docheader));
+
+        return $filter->apply();
     }
 }

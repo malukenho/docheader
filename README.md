@@ -44,6 +44,12 @@ and then run the checker:
 
 So, you get errors or a message saying that everything is ok!
 
+# Docheader file
+
+By default, the `docheader` search for a `.docheader` file on the current directory that 
+the command is executed. But you can specify a folder or a file to be used as placeholder
+using the option `--docheader [file-or-path]`
+
 # Current year placeholder
 
 You can also put `%year%` on your `.docheader` file to refer to the current

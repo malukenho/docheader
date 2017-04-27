@@ -43,7 +43,7 @@ final class Filter
     /**
      * @return string
      */
-    public function applyFilters()
+    public function apply()
     {
         $docheader = $this->docheader;
 

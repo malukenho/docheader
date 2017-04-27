@@ -15,37 +15,33 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  */
-namespace DocHeaderTest\Command\Exception;
+namespace DocHeader\Helper;
 
 use DocHeader\Command\Exception\DocHeaderFileConfiguration;
 
 /**
- * Tests for {@see \DocHeader\Command\Exception\DirectoryException}.
- *
- * @group   Unitary
- * @author  Jefersson Nathan <malukenho@phpse.net>
+ * @author Jefersson Nathan  <malukenho@phpse.net>
  * @license MIT
- *
- * @covers  \DocHeader\Command\Exception\DocHeaderFileConfiguration
  */
-final class DocHeaderFileConfigurationTest extends \PHPUnit_Framework_TestCase
+final class DocheaderFileResolution
 {
     /**
-     * @test
+     * @param string $pathOrFile
+     *
+     * @throws DocHeaderFileConfiguration
+     *
+     * @return string
      */
-    public function it_should_throw_exception_for_directory_not_found()
+    public function resolve($pathOrFile)
     {
-        $sut = DocHeaderFileConfiguration::notFound('/tmp');
+        if (is_dir($pathOrFile)) {
+            $pathOrFile .= DIRECTORY_SEPARATOR . '.docheader';
+        }
 
-        $this->assertInstanceOf(DocHeaderFileConfiguration::class, $sut);
-        $this->assertSame(
-            'Configuration file ".docheader" could not be found on /tmp.',
-            $sut->getMessage()
-        );
+        if (! is_file($pathOrFile)) {
+            throw DocHeaderFileConfiguration::notFound($pathOrFile);
+        }
 
-        $this->setExpectedException(DocHeaderFileConfiguration::class);
-
-        throw $sut;
+        return $pathOrFile;
     }
 }
-

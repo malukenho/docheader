@@ -45,6 +45,6 @@ final class FilterTest extends \PHPUnit_Framework_TestCase
         $docBlock = 'Year %year%';
         $filter = new Filter($docBlock);
 
-        $this->assertSame('Year ' . date('Y'), $filter->applyFilters());
+        $this->assertSame('Year ' . date('Y'), $filter->apply());
     }
 }

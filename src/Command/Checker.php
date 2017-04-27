@@ -72,7 +72,8 @@ final class Checker extends Command
         $directory           = $input->getArgument('directory');
         $excludedDirectories = $input->getOption('exclude-dir') ?: [];
         $excludedFiles       = $input->getOption('exclude') ?: [];
-        $finder              = (new IOResourcePathResolution($directory, $excludedDirectories, $excludedFiles))->__invoke();
+        $finder              = (new IOResourcePathResolution($directory, $excludedDirectories, $excludedFiles))
+            ->__invoke();
         $validator           = new RegExp($docheaderFile);
 
         $success = true;

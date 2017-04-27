@@ -75,17 +75,18 @@ final class Checker extends Command
         $finder              = (new IOResourcePathResolution($directory, $excludedDirectories, $excludedFiles))->__invoke();
         $validator           = new RegExp($docheaderFile);
 
+        $success = true;
         /* @var $file \Symfony\Component\Finder\SplFileInfo */
         foreach ($finder as $dir) {
             foreach ($dir as $file) {
                 if (! $this->docIsCompatible($validator, $file->getContents(), $docheaderFile)) {
-                    defined('FAILED') ?: define('FAILED', 1);
+                    $success = false;
                     $output->writeln('-> ' . $file->getRelativePathname());
                 }
             }
         }
 
-        if (defined('FAILED')) {
+        if (! $success) {
             $output->writeln('');
             $output->writeln('<bg=red;fg=white>    Something goes wrong!     </>');
 

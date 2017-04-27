@@ -18,6 +18,7 @@
 namespace DocHeaderTest\Command;
 
 use DocHeader\Command\Checker;
+use PHPUnit_Framework_TestCase;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\StreamOutput;
 
@@ -30,7 +31,7 @@ use Symfony\Component\Console\Output\StreamOutput;
  *
  * @covers  \DocHeader\Command\Checker
  */
-final class CheckerTest extends \PHPUnit_Framework_TestCase
+final class CheckerTest extends PHPUnit_Framework_TestCase
 {
     private $expectedDocHeader = <<<'DOCHEADER'
 /*
@@ -66,7 +67,6 @@ DOCHEADER;
         $this->checker = new Checker('test', $this->expectedDocHeader);
     }
 
-
     public function testItShouldNotFailWhenCantFindFilesToValidate()
     {
         $directory      = sys_get_temp_dir() . '/' . microtime(true);
@@ -75,9 +75,7 @@ DOCHEADER;
         $input  = new StringInput($directory);
         $output = new StreamOutput($outputResource);
 
-        $this->checker->run($input, $output);
-
-        $this->assertFalse(defined('FAILED'));
+        $this->assertSame(0, $this->checker->run($input, $output));
     }
 
     public function testItShouldValidateFile()
@@ -88,9 +86,7 @@ DOCHEADER;
         $input  = new StringInput($directory);
         $output = new StreamOutput($outputResource);
 
-        $this->checker->run($input, $output);
-
-        $this->assertFalse(defined('FAILED'));
+        $this->assertSame(0, $this->checker->run($input, $output));
     }
 
     public function testItShouldFailToValidateMissingHeaderOnFiles()
@@ -102,6 +98,5 @@ DOCHEADER;
         $output = new StreamOutput($outputResource);
 
         $this->assertSame(1, $this->checker->run($input, $output));
-        $this->assertTrue(defined('FAILED'));
     }
 }

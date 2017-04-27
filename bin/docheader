@@ -28,14 +28,8 @@ call_user_func(function () {
     /** @noinspection PhpIncludeInspection */
     require current($autoload);
 
-    if (! is_file('.docheader')) {
-        throw \DocHeader\Command\Exception\DocHeaderFileConfiguration::notFound();
-    }
-
-    $filters = new DocHeader\Filter\Filter(file_get_contents('.docheader'));
-
     $application = new Application();
-    $application->add(new \DocHeader\Command\Checker(null, $filters->applyFilters()));
+    $application->add(new \DocHeader\Command\Checker('Docheader'));
 
     $application->run();
 });

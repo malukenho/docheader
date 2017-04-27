@@ -33,11 +33,6 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class Checker extends Command
 {
-    public function __construct($name)
-    {
-        parent::__construct(null);
-    }
-
     protected function configure()
     {
         $this

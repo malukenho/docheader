@@ -18,10 +18,12 @@
 
 namespace DocHeader\Command\Exception;
 
+use Exception;
+
 /**
  * @author Jefersson Nathan <malukenho@phpse.net>
  */
-final class DirectoryException extends \Exception
+final class DirectoryException extends Exception
 {
     public static function notFound($directory)
     {

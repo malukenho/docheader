@@ -18,6 +18,7 @@
 namespace DocHeaderTest\Command\Exception;
 
 use DocHeader\Command\Exception\DirectoryException;
+use PHPUnit_Framework_TestCase;
 
 /**
  * Tests for {@see \DocHeader\Command\Exception\DirectoryException}.
@@ -28,7 +29,7 @@ use DocHeader\Command\Exception\DirectoryException;
  *
  * @covers  \DocHeader\Command\Exception\DirectoryException
  */
-final class DirectoryExceptionTest extends \PHPUnit_Framework_TestCase
+final class DirectoryExceptionTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @test

@@ -29,10 +29,12 @@ final class IOResourcePathResolution
      * @var string
      */
     private $directoryOrFile;
+
     /**
      * @var string[]
      */
     private $excludedDirectory;
+
     /**
      * @var string[]
      */

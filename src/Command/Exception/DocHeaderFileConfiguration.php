@@ -17,10 +17,12 @@
  */
 namespace DocHeader\Command\Exception;
 
+use Exception;
+
 /**
  * @author Jefersson Nathan <malukenho@phpse.net>
  */
-final class DocHeaderFileConfiguration extends \Exception
+final class DocHeaderFileConfiguration extends Exception
 {
     /**
      * @param string $pathOrFile

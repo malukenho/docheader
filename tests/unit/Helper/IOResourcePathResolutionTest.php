@@ -19,12 +19,13 @@
 namespace DocHeaderTest\Helper;
 
 use DocHeader\Helper\IOResourcePathResolution;
+use PHPUnit_Framework_TestCase;
 
 /**
  * @author  Jefersson Nathan  <malukenho@phpse.net>
  * @license MIT
  */
-final class IOResourcePathResolutionTest extends \PHPUnit_Framework_TestCase
+final class IOResourcePathResolutionTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @test

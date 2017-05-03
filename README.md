@@ -9,7 +9,7 @@
 [![License](https://poser.pugx.org/malukenho/docheader/license)](https://packagist.org/packages/malukenho/docheader)
 
 How much time we have wasted to change copyright years in our project?
-How much times we forget to update it and then we're in the middle of 
+How much times we forget to update it and then we're in the middle of
 a new year using last year copyright dated? *That's sucks!!one!!*
 
 **Put doc header check in your build and get it out of your way!**
@@ -23,7 +23,7 @@ a new year using last year copyright dated? *That's sucks!!one!!*
 ### Setting up
 
 Put your header in one `.docheader` file in the directory that you're
-running the checker/fixer. It file must contain only the dockblock as 
+running the checker/fixer. It file must contain only the dockblock as
 you want, like following example:
 
 ```php
@@ -44,13 +44,13 @@ and then run the checker:
 
 So, you get errors or a message saying that everything is ok!
 
-# Docheader file
+### Docheader file
 
-By default, the `docheader` search for a `.docheader` file on the current directory that 
+By default, the `docheader` search for a `.docheader` file on the current directory that
 the command is executed. But you can specify a folder or a file to be used as placeholder
 using the option `--docheader [file-or-path]`
 
-# Current year placeholder
+### Current year placeholder
 
 You can also put `%year%` on your `.docheader` file to refer to the current
 Year, like that:
@@ -61,7 +61,7 @@ Year, like that:
  */
 ```
 
-# Regexp assertion
+### Regexp assertion
 
 If you're using `>=0.1.5` version, you can use the `%regexp:%` placeholder to match some content.
 

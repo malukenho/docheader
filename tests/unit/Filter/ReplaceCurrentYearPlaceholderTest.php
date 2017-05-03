@@ -19,6 +19,7 @@ namespace DocHeaderTest\Filter;
 
 use DocHeader\Filter\ReplaceCurrentYearPlaceholder;
 use DocHeader\Filter\FilterInterface;
+use PHPUnit_Framework_TestCase;
 
 /**
  * Tests for {@see \DocHeader\Filter\CurrentYear}.
@@ -29,7 +30,7 @@ use DocHeader\Filter\FilterInterface;
  *
  * @covers  \DocHeader\Filter\ReplaceCurrentYearPlaceholder
  */
-final class ReplaceCurrentYearPlaceholderTest extends \PHPUnit_Framework_TestCase
+final class ReplaceCurrentYearPlaceholderTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @test

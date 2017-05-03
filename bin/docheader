@@ -27,7 +27,7 @@ call_user_func(function () {
     }
 
     /** @noinspection PhpIncludeInspection */
-    require current($autoload);
+    require reset($autoload);
 
     $application = new Application();
     $application->add(new Checker('check'));

@@ -29,7 +29,7 @@ final class Filter
     private $docheader;
 
     /**
-     * @var array<string>
+     * @var string[]
      */
     private $dockBlockDefaultFilters = [
         ReplaceCurrentYearPlaceholder::class,
@@ -48,12 +48,10 @@ final class Filter
      */
     public function apply()
     {
-        $docheader = $this->docheader;
+        $applyFilters = function ($docheader, $filter) {
+            return (new $filter)->__invoke($docheader);
+        };
 
-        foreach ($this->dockBlockDefaultFilters as $filterName) {
-            $docheader = (new $filterName)->__invoke($docheader);
-        }
-
-        return $docheader;
+        return array_reduce($this->dockBlockDefaultFilters, $applyFilters, $this->docheader);
     }
 }

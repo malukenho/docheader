@@ -28,6 +28,9 @@ final class Filter
      */
     private $docheader;
 
+    /**
+     * @var array<string>
+     */
     private $dockBlockDefaultFilters = [
         ReplaceCurrentYearPlaceholder::class,
     ];

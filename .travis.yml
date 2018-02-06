@@ -16,7 +16,7 @@ before_script:
 
 script:
   - ./vendor/bin/phpunit
-  - ./vendor/bin/psalm
+  - [[ if "$TRAVIS_PHP_VERSION" = '7.1' ]]; then /vendor/bin/psalm; fi
   - ./vendor/bin/phpcs
 
 after_script:

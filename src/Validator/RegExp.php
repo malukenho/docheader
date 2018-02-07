@@ -41,7 +41,9 @@ final class RegExp
     }
 
     /**
-     * {@inheritDoc}
+     * @param string $docheader
+     *
+     * @return bool
      */
     public function __invoke($docheader)
     {

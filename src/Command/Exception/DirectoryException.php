@@ -25,6 +25,11 @@ use Exception;
  */
 final class DirectoryException extends Exception
 {
+    /**
+     * @param string $directory
+     *
+     * @return self
+     */
     public static function notFound($directory)
     {
         return new self(sprintf('Directory "%s" could not be found.', $directory));

@@ -26,7 +26,7 @@ use Symfony\Component\Finder\Finder;
 final class IOResourcePathResolution
 {
     /**
-     * @var string
+     * @var string[]
      */
     private $directoryOrFile;
 
@@ -41,9 +41,9 @@ final class IOResourcePathResolution
     private $excludedFiles;
 
     /**
-     * @param array $directoryOrFile
-     * @param array $excludedDirectory
-     * @param array $excludedFiles
+     * @param string[] $directoryOrFile
+     * @param string[] $excludedDirectory
+     * @param string[] $excludedFiles
      */
     public function __construct(array $directoryOrFile, array $excludedDirectory, array $excludedFiles)
     {
@@ -52,11 +52,21 @@ final class IOResourcePathResolution
         $this->excludedFiles     = $excludedFiles;
     }
 
+    /**
+     * @param string $directoryOrFile
+     *
+     * @return string
+     */
     private function getDirectory($directoryOrFile)
     {
         return is_dir($directoryOrFile) ? $directoryOrFile : dirname($directoryOrFile);
     }
 
+    /**
+     * @param string $directoryOrFile
+     *
+     * @return string
+     */
     private function getFeatureMatch($directoryOrFile)
     {
         return is_dir($directoryOrFile) ? '*.php' : basename($directoryOrFile);
@@ -70,6 +80,11 @@ final class IOResourcePathResolution
     public function __invoke()
     {
         return array_map(
+            /**
+             * @param string $directoryOrFile
+             *
+             * @return Finder
+             */
             function ($directoryOrFile) {
                 $finder = Finder::create()
                     ->files()

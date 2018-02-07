@@ -33,6 +33,11 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class Checker extends Command
 {
+    /**
+     * @throws \Symfony\Component\Console\Exception\InvalidArgumentException
+     *
+     * @return void
+     */
     protected function configure()
     {
         $this
@@ -97,11 +102,23 @@ final class Checker extends Command
         $output->writeln('<bg=green;fg=white>    Everything is OK!     </>');
     }
 
+    /**
+     * @param RegExp $headerValidator
+     * @param string $fileContent
+     * @param string $docheaderFile
+     *
+     * @return bool
+     */
     private function docIsCompatible($headerValidator, $fileContent, $docheaderFile)
     {
         return $headerValidator->__invoke($fileContent) || false !== strpos($fileContent, $docheaderFile);
     }
 
+    /**
+     * @throws Exception\DocHeaderFileConfiguration
+     *
+     * @return string
+     */
     private function getDocheaderFileContent(InputInterface $input)
     {
         $docheaderFile = $input->getOption('docheader');

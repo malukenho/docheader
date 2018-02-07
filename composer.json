@@ -27,7 +27,8 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^4.7",
-    "squizlabs/php_codesniffer": "^2.8"
+    "squizlabs/php_codesniffer": "^2.8",
+    "vimeo/psalm": "^0.3"
   },
   "bin": [
     "bin/docheader"

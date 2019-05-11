@@ -3,12 +3,11 @@ language: php
 sudo: false
 
 php:
-  - 5.5
-  - 5.6
-  - 7.0
   - 7.1
   - 7.2
+  - 7.3
   - hhvm
+  - nightly
 
 before_script:
   - composer self-update
@@ -25,4 +24,5 @@ after_script:
 matrix:
   allow_failures:
     - php: hhvm
+    - php: nightly
     - php: 7.2

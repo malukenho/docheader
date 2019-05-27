@@ -26,7 +26,7 @@ use Symfony\Component\Console\Output\StreamOutput;
  * Tests for {@see \DocHeader\Command\Checker}.
  *
  * @group   Unitary
- * @author  Jefersson Nathan <malukenho@phpse.net>
+ * @author  Jefersson Nathan <malukenho.dev@gmail.com>
  * @license MIT
  *
  * @covers  \DocHeader\Command\Checker

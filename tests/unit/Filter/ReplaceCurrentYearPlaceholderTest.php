@@ -25,7 +25,7 @@ use PHPUnit_Framework_TestCase;
  * Tests for {@see \DocHeader\Filter\CurrentYear}.
  *
  * @group   Unitary
- * @author  Jefersson Nathan <malukenho@phpse.net>
+ * @author  Jefersson Nathan <malukenho.dev@gmail.com>
  * @license MIT
  *
  * @covers  \DocHeader\Filter\ReplaceCurrentYearPlaceholder

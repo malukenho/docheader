@@ -19,7 +19,7 @@
 namespace DocHeader\Validator;
 
 /**
- * @author  Jefersson Nathan <malukenho@phpse.net>
+ * @author  Jefersson Nathan <malukenho.dev@gmail.com>
  * @license MIT
  */
 final class RegExp

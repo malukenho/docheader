@@ -29,7 +29,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * @author Jefersson Nathan <malukenho@phpse.net>
+ * @author Jefersson Nathan <malukenho.dev@gmail.com>
  */
 final class Checker extends Command
 {

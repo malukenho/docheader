@@ -22,7 +22,7 @@ use DocHeader\Filter\Filter;
  * Tests for {@see \DocHeader\Filter\Filter}.
  *
  * @group   Unitary
- * @author  Jefersson Nathan <malukenho@phpse.net>
+ * @author  Jefersson Nathan <malukenho.dev@gmail.com>
  * @license MIT
  *
  * @covers  \DocHeader\Filter\Filter

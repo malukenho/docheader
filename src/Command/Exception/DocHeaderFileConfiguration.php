@@ -20,7 +20,7 @@ namespace DocHeader\Command\Exception;
 use Exception;
 
 /**
- * @author Jefersson Nathan <malukenho@phpse.net>
+ * @author Jefersson Nathan <malukenho.dev@gmail.com>
  */
 final class DocHeaderFileConfiguration extends Exception
 {

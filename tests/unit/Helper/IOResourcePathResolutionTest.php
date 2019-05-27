@@ -22,7 +22,7 @@ use DocHeader\Helper\IOResourcePathResolution;
 use PHPUnit_Framework_TestCase;
 
 /**
- * @author  Jefersson Nathan  <malukenho@phpse.net>
+ * @author  Jefersson Nathan  <malukenho.dev@gmail.com>
  * @license MIT
  */
 final class IOResourcePathResolutionTest extends PHPUnit_Framework_TestCase

@@ -2,3 +2,5 @@ composer.lock
 *.swp
 .idea/
 vendor/
+.phpcs-cache
+.phpunit.result.cache

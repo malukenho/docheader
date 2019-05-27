@@ -80,7 +80,8 @@ final class IOResourcePathResolution
                     ->ignoreDotFiles(true)
                     ->in(rtrim($this->getDirectory($directoryOrFile), '/'))
                     ->name($this->getFeatureMatch($directoryOrFile))
-                    ->exclude($this->excludedDirectory);
+                    ->exclude($this->excludedDirectory)
+                    ->sortByName();
 
                 foreach ($this->excludedFiles as $pattern) {
                     $finder->notPath($pattern);

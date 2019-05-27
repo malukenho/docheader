@@ -3,6 +3,7 @@
     name="PSalm rules for malukenho/docheader"
     useDocblockTypes="true"
     totallyTyped="false"
+    allowStringToStandInForClass="true"
 >
     <projectFiles>
         <directory name="src" />

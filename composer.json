@@ -27,8 +27,8 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^8.0",
-    "squizlabs/php_codesniffer": "^2.8",
-    "vimeo/psalm": "^3.3"
+    "vimeo/psalm": "^3.3",
+    "doctrine/coding-standard": "^6.0"
   },
   "bin": [
     "bin/docheader"

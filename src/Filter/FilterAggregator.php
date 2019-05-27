@@ -18,36 +18,31 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  */
-namespace DocHeaderTest\Filter;
+namespace DocHeader\Filter;
 
-use DocHeader\Filter\Filter;
-use PHPUnit\Framework\TestCase;
-use function date;
+use function array_reduce;
 
-/**
- * Tests for {@see \DocHeader\Filter\Filter}.
- *
- * @group   Unitary
- * @covers  \DocHeader\Filter\Filter
- */
-final class FilterTest extends TestCase
+final class FilterAggregator
 {
-    /**
-     * @test
-     */
-    public function it_should_have_replace_current_year_placeholder_as_default_filter() : void
+    /** @var string */
+    private $docheader;
+
+    /** @var string[] */
+    private $dockBlockDefaultFilters = [
+        ReplaceCurrentYearPlaceholder::class,
+    ];
+
+    public function __construct(string $docheader)
     {
-        $this->assertClassHasAttribute('dockBlockDefaultFilters', Filter::class);
+        $this->docheader = $docheader;
     }
 
-    /**
-     * @test
-     */
-    public function it_should_apply_default_filters_to_given_docheader() : void
+    public function apply() : string
     {
-        $docBlock = 'Year %year%';
-        $filter   = new Filter($docBlock);
+        $applyFilters = static function (string $docheader, string $filter) : string {
+            return (new $filter())->__invoke($docheader);
+        };
 
-        $this->assertSame('Year ' . date('Y'), $filter->apply());
+        return array_reduce($this->dockBlockDefaultFilters, $applyFilters, $this->docheader);
     }
 }

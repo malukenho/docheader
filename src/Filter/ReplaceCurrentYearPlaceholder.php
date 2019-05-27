@@ -23,7 +23,7 @@ namespace DocHeader\Filter;
 use function date;
 use function str_replace;
 
-final class ReplaceCurrentYearPlaceholder implements FilterInterface
+final class ReplaceCurrentYearPlaceholder implements Filter
 {
     private const CURRENT_YEAR = '%year%';
 

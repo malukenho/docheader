@@ -20,7 +20,7 @@ declare(strict_types=1);
  */
 namespace DocHeaderTest\Filter;
 
-use DocHeader\Filter\FilterInterface;
+use DocHeader\Filter\Filter;
 use DocHeader\Filter\ReplaceCurrentYearPlaceholder;
 use PHPUnit\Framework\TestCase;
 use function date;
@@ -41,7 +41,7 @@ final class ReplaceCurrentYearPlaceholderTest extends TestCase
         $filter    = new ReplaceCurrentYearPlaceholder();
         $docheader = 'Current Year -> %year%';
 
-        $this->assertInstanceOf(FilterInterface::class, $filter);
+        $this->assertInstanceOf(Filter::class, $filter);
 
         $this->assertSame('Current Year -> ' . date('Y'), $filter->__invoke($docheader));
         $this->assertSame(date('Y'), $filter->__invoke('%year%'));

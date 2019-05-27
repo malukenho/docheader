@@ -20,7 +20,7 @@ declare(strict_types=1);
 
 namespace DocHeader\Command;
 
-use DocHeader\Filter\Filter;
+use DocHeader\Filter\FilterAggregator;
 use DocHeader\Helper\DocheaderFileResolution;
 use DocHeader\Helper\IOResourcePathResolution;
 use DocHeader\Validator\RegExp;
@@ -124,7 +124,7 @@ final class Checker extends Command
         assert(is_string($docheaderFile));
 
         $docheader = (new DocheaderFileResolution())->resolve($docheaderFile);
-        $filter    = new Filter(file_get_contents($docheader));
+        $filter    = new FilterAggregator(file_get_contents($docheader));
 
         return $filter->apply();
     }

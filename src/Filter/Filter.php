@@ -20,29 +20,11 @@ declare(strict_types=1);
  */
 namespace DocHeader\Filter;
 
-use function array_reduce;
-
-final class Filter
+interface Filter
 {
-    /** @var string */
-    private $docheader;
-
-    /** @var string[] */
-    private $dockBlockDefaultFilters = [
-        ReplaceCurrentYearPlaceholder::class,
-    ];
-
-    public function __construct(string $docheader)
-    {
-        $this->docheader = $docheader;
-    }
-
-    public function apply() : string
-    {
-        $applyFilters = static function (string $docheader, string $filter) : string {
-            return (new $filter())->__invoke($docheader);
-        };
-
-        return array_reduce($this->dockBlockDefaultFilters, $applyFilters, $this->docheader);
-    }
+    /**
+     * Receives the docheader content, may already processed by other
+     * filter and apply some changes, them return it.
+     */
+    public function __invoke(string $docheader) : string;
 }

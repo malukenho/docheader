@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,27 +20,23 @@
  */
 namespace DocHeader\Helper;
 
+use InvalidArgumentException;
 use Symfony\Component\Finder\Finder;
+use function array_map;
+use function basename;
+use function dirname;
+use function is_dir;
+use function rtrim;
 
-/**
- * @author Jefersson Nathan  <malukenho.dev@gmail.com>
- * @license MIT
- */
 final class IOResourcePathResolution
 {
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     private $directoryOrFile;
 
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     private $excludedDirectory;
 
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     private $excludedFiles;
 
     /**
@@ -52,32 +51,22 @@ final class IOResourcePathResolution
         $this->excludedFiles     = $excludedFiles;
     }
 
-    /**
-     * @param string $directoryOrFile
-     *
-     * @return string
-     */
-    private function getDirectory($directoryOrFile)
+    private function getDirectory(string $directoryOrFile) : string
     {
         return is_dir($directoryOrFile) ? $directoryOrFile : dirname($directoryOrFile);
     }
 
-    /**
-     * @param string $directoryOrFile
-     *
-     * @return string
-     */
-    private function getFeatureMatch($directoryOrFile)
+    private function getFeatureMatch(string $directoryOrFile) : string
     {
         return is_dir($directoryOrFile) ? '*.php' : basename($directoryOrFile);
     }
 
     /**
-     * @throws \InvalidArgumentException
-     *
      * @return Finder[]
+     *
+     * @throws InvalidArgumentException
      */
-    public function __invoke()
+    public function __invoke() : array
     {
         return array_map(
             /**

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,18 +21,11 @@
 namespace DocHeader\Command\Exception;
 
 use Exception;
+use function sprintf;
 
-/**
- * @author Jefersson Nathan <malukenho.dev@gmail.com>
- */
 final class DocHeaderFileConfiguration extends Exception
 {
-    /**
-     * @param string $pathOrFile
-     *
-     * @return DocHeaderFileConfiguration
-     */
-    public static function notFound($pathOrFile)
+    public static function notFound(string $pathOrFile) : DocHeaderFileConfiguration
     {
         return new self(sprintf('Configuration file ".docheader" could not be found on %s.', $pathOrFile));
     }

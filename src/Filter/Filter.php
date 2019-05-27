@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,39 +20,27 @@
  */
 namespace DocHeader\Filter;
 
-/**
- * @author  Jefersson Nathan <malukenho.dev@gmail.com>
- * @license MIT
- */
+use function array_reduce;
+
 final class Filter
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $docheader;
 
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     private $dockBlockDefaultFilters = [
         ReplaceCurrentYearPlaceholder::class,
     ];
 
-    /**
-     * @param string $docheader
-     */
-    public function __construct($docheader)
+    public function __construct(string $docheader)
     {
         $this->docheader = $docheader;
     }
 
-    /**
-     * @return string
-     */
-    public function apply()
+    public function apply() : string
     {
-        $applyFilters = function ($docheader, $filter) {
-            return (new $filter)->__invoke($docheader);
+        $applyFilters = static function (string $docheader, string $filter) : string {
+            return (new $filter())->__invoke($docheader);
         };
 
         return array_reduce($this->dockBlockDefaultFilters, $applyFilters, $this->docheader);

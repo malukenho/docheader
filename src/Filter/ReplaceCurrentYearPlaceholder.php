@@ -16,20 +16,21 @@
  * and is licensed under the MIT license.
  */
 
+declare(strict_types=1);
+
 namespace DocHeader\Filter;
 
-/**
- * @author  Jefersson Nathan <malukenho.dev@gmail.com>
- * @license MIT
- */
+use function date;
+use function str_replace;
+
 final class ReplaceCurrentYearPlaceholder implements FilterInterface
 {
-    const CURRENT_YEAR = '%year%';
+    private const CURRENT_YEAR = '%year%';
 
     /**
      * {@inheritDoc}
      */
-    public function __invoke($docheader)
+    public function __invoke(string $docheader) : string
     {
         return str_replace(self::CURRENT_YEAR, date('Y'), $docheader);
     }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,9 +27,6 @@ use PHPUnit\Framework\TestCase;
  * Tests for {@see \DocHeader\Command\Exception\DirectoryException}.
  *
  * @group   Unitary
- * @author  Jefersson Nathan <malukenho.dev@gmail.com>
- * @license MIT
- *
  * @covers  \DocHeader\Command\Exception\DirectoryException
  */
 final class DirectoryExceptionTest extends TestCase
@@ -34,7 +34,7 @@ final class DirectoryExceptionTest extends TestCase
     /**
      * @test
      */
-    public function it_should_throw_exception_for_directory_not_found()
+    public function it_should_throw_exception_for_directory_not_found() : void
     {
         $sut = DirectoryException::notFound('foo');
 

@@ -16,21 +16,16 @@
  * and is licensed under the MIT license.
  */
 
+declare(strict_types=1);
+
 namespace DocHeader\Command\Exception;
 
 use Exception;
+use function sprintf;
 
-/**
- * @author Jefersson Nathan <malukenho.dev@gmail.com>
- */
 final class DirectoryException extends Exception
 {
-    /**
-     * @param string $directory
-     *
-     * @return self
-     */
-    public static function notFound($directory)
+    public static function notFound(string $directory) : self
     {
         return new self(sprintf('Directory "%s" could not be found.', $directory));
     }

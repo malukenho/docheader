@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,14 +22,12 @@ namespace DocHeaderTest\Filter;
 
 use DocHeader\Filter\Filter;
 use PHPUnit\Framework\TestCase;
+use function date;
 
 /**
  * Tests for {@see \DocHeader\Filter\Filter}.
  *
  * @group   Unitary
- * @author  Jefersson Nathan <malukenho.dev@gmail.com>
- * @license MIT
- *
  * @covers  \DocHeader\Filter\Filter
  */
 final class FilterTest extends TestCase
@@ -34,7 +35,7 @@ final class FilterTest extends TestCase
     /**
      * @test
      */
-    public function it_should_have_replace_current_year_placeholder_as_default_filter()
+    public function it_should_have_replace_current_year_placeholder_as_default_filter() : void
     {
         $this->assertClassHasAttribute('dockBlockDefaultFilters', Filter::class);
     }
@@ -42,10 +43,10 @@ final class FilterTest extends TestCase
     /**
      * @test
      */
-    public function it_should_apply_default_filters_to_given_docheader()
+    public function it_should_apply_default_filters_to_given_docheader() : void
     {
         $docBlock = 'Year %year%';
-        $filter = new Filter($docBlock);
+        $filter   = new Filter($docBlock);
 
         $this->assertSame('Year ' . date('Y'), $filter->apply());
     }

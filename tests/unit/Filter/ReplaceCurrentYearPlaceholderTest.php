@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,17 +20,15 @@
  */
 namespace DocHeaderTest\Filter;
 
-use DocHeader\Filter\ReplaceCurrentYearPlaceholder;
 use DocHeader\Filter\FilterInterface;
+use DocHeader\Filter\ReplaceCurrentYearPlaceholder;
 use PHPUnit\Framework\TestCase;
+use function date;
 
 /**
  * Tests for {@see \DocHeader\Filter\CurrentYear}.
  *
  * @group   Unitary
- * @author  Jefersson Nathan <malukenho.dev@gmail.com>
- * @license MIT
- *
  * @covers  \DocHeader\Filter\ReplaceCurrentYearPlaceholder
  */
 final class ReplaceCurrentYearPlaceholderTest extends TestCase
@@ -35,9 +36,9 @@ final class ReplaceCurrentYearPlaceholderTest extends TestCase
     /**
      * @test
      */
-    public function it_should_replace_the_year_tag_by_current_year()
+    public function it_should_replace_the_year_tag_by_current_year() : void
     {
-        $filter = new ReplaceCurrentYearPlaceholder();
+        $filter    = new ReplaceCurrentYearPlaceholder();
         $docheader = 'Current Year -> %year%';
 
         $this->assertInstanceOf(FilterInterface::class, $filter);

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,19 +20,11 @@
  */
 namespace DocHeader\Filter;
 
-/**
- * @author  Jefersson Nathan <malukenho.dev@gmail.com>
- * @license MIT
- */
 interface FilterInterface
 {
     /**
      * Receives the docheader content, may already processed by other
      * filter and apply some changes, them return it.
-     *
-     * @param string $docheader
-     *
-     * @return string
      */
-    public function __invoke($docheader);
+    public function __invoke(string $docheader) : string;
 }

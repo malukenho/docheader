@@ -33,6 +33,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\SplFileInfo;
 use function assert;
 use function file_get_contents;
+use function is_array;
 use function is_string;
 use function strpos;
 
@@ -77,12 +78,16 @@ final class Checker extends Command
     protected function execute(InputInterface $input, OutputInterface $output) : int
     {
         $docheaderFile       = $this->getDocheaderFileContent($input);
-        $directory           = $input->getArgument('directory');
+        $directory           = (array) $input->getArgument('directory');
         $excludedDirectories = $input->getOption('exclude-dir') ?: [];
         $excludedFiles       = $input->getOption('exclude') ?: [];
-        $finder              = (new IOResourcePathResolution($directory, $excludedDirectories, $excludedFiles))
+
+        assert(is_array($excludedDirectories));
+        assert(is_array($excludedFiles));
+
+        $finder    = (new IOResourcePathResolution($directory, $excludedDirectories, $excludedFiles))
             ->__invoke();
-        $validator           = new RegExp($docheaderFile);
+        $validator = new RegExp($docheaderFile);
 
         $success = true;
         /** @var SplFileInfo $file */

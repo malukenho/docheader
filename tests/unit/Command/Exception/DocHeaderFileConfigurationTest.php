@@ -24,7 +24,7 @@ use DocHeader\Command\Exception\DocHeaderFileConfiguration;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests for {@see \DocHeader\Command\Exception\DirectoryException}.
+ * Tests for {@see \DocHeader\Command\Exception\DirectoryNotFound}.
  *
  * @group   Unitary
  * @covers  \DocHeader\Command\Exception\DocHeaderFileConfiguration

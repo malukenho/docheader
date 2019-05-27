@@ -20,14 +20,14 @@ declare(strict_types=1);
  */
 namespace DocHeaderTest\Command\Exception;
 
-use DocHeader\Command\Exception\DirectoryException;
+use DocHeader\Command\Exception\DirectoryNotFound;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests for {@see \DocHeader\Command\Exception\DirectoryException}.
+ * Tests for {@see \DocHeader\Command\Exception\DirectoryNotFound}.
  *
  * @group   Unitary
- * @covers  \DocHeader\Command\Exception\DirectoryException
+ * @covers  \DocHeader\Command\Exception\DirectoryNotFound
  */
 final class DirectoryExceptionTest extends TestCase
 {
@@ -36,15 +36,15 @@ final class DirectoryExceptionTest extends TestCase
      */
     public function it_should_throw_exception_for_directory_not_found() : void
     {
-        $sut = DirectoryException::notFound('foo');
+        $sut = DirectoryNotFound::withName('foo');
 
-        $this->assertInstanceOf(DirectoryException::class, $sut);
+        $this->assertInstanceOf(DirectoryNotFound::class, $sut);
         $this->assertSame(
             'Directory "foo" could not be found.',
             $sut->getMessage()
         );
 
-        $this->expectException(DirectoryException::class);
+        $this->expectException(DirectoryNotFound::class);
 
         throw $sut;
     }

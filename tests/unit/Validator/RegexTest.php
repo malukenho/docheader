@@ -18,7 +18,7 @@
 namespace DocHeaderTest\Validator;
 
 use DocHeader\Validator\RegExp;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests for {@see \DocHeader\Validator\Regex}.
@@ -29,7 +29,7 @@ use PHPUnit_Framework_TestCase;
  *
  * @covers  \DocHeader\Validator\RegExp
  */
-final class RegexTest extends PHPUnit_Framework_TestCase
+final class RegexTest extends TestCase
 {
     /**
      * @test

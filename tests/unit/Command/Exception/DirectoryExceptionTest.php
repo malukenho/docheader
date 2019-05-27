@@ -18,7 +18,7 @@
 namespace DocHeaderTest\Command\Exception;
 
 use DocHeader\Command\Exception\DirectoryException;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests for {@see \DocHeader\Command\Exception\DirectoryException}.
@@ -29,7 +29,7 @@ use PHPUnit_Framework_TestCase;
  *
  * @covers  \DocHeader\Command\Exception\DirectoryException
  */
-final class DirectoryExceptionTest extends PHPUnit_Framework_TestCase
+final class DirectoryExceptionTest extends TestCase
 {
     /**
      * @test
@@ -44,7 +44,7 @@ final class DirectoryExceptionTest extends PHPUnit_Framework_TestCase
             $sut->getMessage()
         );
 
-        $this->setExpectedException(DirectoryException::class);
+        $this->expectException(DirectoryException::class);
 
         throw $sut;
     }

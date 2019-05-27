@@ -18,7 +18,7 @@
 namespace DocHeaderTest\Command;
 
 use DocHeader\Command\Checker;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\StreamOutput;
 
@@ -31,7 +31,7 @@ use Symfony\Component\Console\Output\StreamOutput;
  *
  * @covers  \DocHeader\Command\Checker
  */
-final class CheckerTest extends PHPUnit_Framework_TestCase
+final class CheckerTest extends TestCase
 {
     private $expectedDocHeader = <<<'DOCHEADER'
 /*
@@ -60,7 +60,7 @@ DOCHEADER;
     /**
      * {@inheritDoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

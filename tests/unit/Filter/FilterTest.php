@@ -16,7 +16,9 @@
  * and is licensed under the MIT license.
  */
 namespace DocHeaderTest\Filter;
+
 use DocHeader\Filter\Filter;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests for {@see \DocHeader\Filter\Filter}.
@@ -27,7 +29,7 @@ use DocHeader\Filter\Filter;
  *
  * @covers  \DocHeader\Filter\Filter
  */
-final class FilterTest extends \PHPUnit_Framework_TestCase
+final class FilterTest extends TestCase
 {
     /**
      * @test

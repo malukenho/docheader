@@ -18,6 +18,7 @@
 namespace DocHeaderTest\Command\Exception;
 
 use DocHeader\Command\Exception\DocHeaderFileConfiguration;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests for {@see \DocHeader\Command\Exception\DirectoryException}.
@@ -28,7 +29,7 @@ use DocHeader\Command\Exception\DocHeaderFileConfiguration;
  *
  * @covers  \DocHeader\Command\Exception\DocHeaderFileConfiguration
  */
-final class DocHeaderFileConfigurationTest extends \PHPUnit_Framework_TestCase
+final class DocHeaderFileConfigurationTest extends TestCase
 {
     /**
      * @test
@@ -43,7 +44,7 @@ final class DocHeaderFileConfigurationTest extends \PHPUnit_Framework_TestCase
             $sut->getMessage()
         );
 
-        $this->setExpectedException(DocHeaderFileConfiguration::class);
+        $this->expectException(DocHeaderFileConfiguration::class);
 
         throw $sut;
     }

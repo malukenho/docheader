@@ -23,8 +23,8 @@ namespace DocHeader\Filter;
 interface Filter
 {
     /**
-     * Receives the docheader content, may already processed by other
-     * filter and apply some changes, them return it.
+     * Receives the docheader content, may already be processed by other
+     * filter and apply some changes, then return it.
      */
     public function __invoke(string $docheader) : string;
 }

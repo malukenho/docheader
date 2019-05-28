@@ -16,36 +16,30 @@
  * and is licensed under the MIT license.
  */
 
+declare(strict_types=1);
+
 namespace DocHeader\Validator;
 
-/**
- * @author  Jefersson Nathan <malukenho@phpse.net>
- * @license MIT
- */
+use function preg_match;
+use function preg_match_all;
+use function preg_quote;
+use function sha1;
+use function str_replace;
+
 final class RegExp
 {
-    const TAG_BEGIN = '%regexp:';
-    const TAG_END   = '%';
+    public const TAG_BEGIN = '%regexp:';
+    public const TAG_END   = '%';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $pattern;
 
-    /**
-     * @param string $pattern
-     */
-    public function __construct($pattern)
+    public function __construct(string $pattern)
     {
         $this->pattern = $pattern;
     }
 
-    /**
-     * @param string $docheader
-     *
-     * @return bool
-     */
-    public function __invoke($docheader)
+    public function __invoke(string $docheader) : bool
     {
         $didMatch = preg_match_all(
             '{' . preg_quote(self::TAG_BEGIN) . '(.+?)' . preg_quote(self::TAG_END) . '}',
@@ -59,14 +53,14 @@ final class RegExp
 
         $matchable = $this->pattern;
 
-        /* @var $matches array[] */
+        /** @var array[] $matches */
         foreach ($matches[0] as $k => $match) {
             $matchable = str_replace($match, sha1($match . $k), $matchable);
         }
 
         $protected = preg_quote($matchable);
 
-        /* @var $matches array[] */
+        /** @var array[] $matches */
         foreach ($matches[1] as $k => $match) {
             $protected = str_replace(preg_quote(sha1($matches[0][$k] . $k)), $match, $protected);
         }

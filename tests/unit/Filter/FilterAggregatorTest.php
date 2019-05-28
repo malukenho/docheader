@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -15,23 +18,36 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  */
+namespace DocHeaderTest\Filter;
 
-namespace DocHeader\Command\Exception;
-
-use Exception;
+use DocHeader\Filter\FilterAggregator;
+use PHPUnit\Framework\TestCase;
+use function date;
 
 /**
- * @author Jefersson Nathan <malukenho@phpse.net>
+ * Tests for {@see \DocHeader\Filter\FilterAggregator}.
+ *
+ * @group   Unitary
+ * @covers  \DocHeader\Filter\FilterAggregator
  */
-final class DirectoryException extends Exception
+final class FilterAggregatorTest extends TestCase
 {
     /**
-     * @param string $directory
-     *
-     * @return self
+     * @test
      */
-    public static function notFound($directory)
+    public function it_should_have_replace_current_year_placeholder_as_default_filter() : void
     {
-        return new self(sprintf('Directory "%s" could not be found.', $directory));
+        $this->assertClassHasAttribute('dockBlockDefaultFilters', FilterAggregator::class);
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_apply_default_filters_to_given_docheader() : void
+    {
+        $docBlock = 'Year %year%';
+        $filter   = new FilterAggregator($docBlock);
+
+        $this->assertSame('Year ' . date('Y'), $filter->apply());
     }
 }

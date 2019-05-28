@@ -16,29 +16,33 @@
  * and is licensed under the MIT license.
  */
 
+declare(strict_types=1);
+
 namespace DocHeader\Command;
 
-use DocHeader\Filter\Filter;
+use DocHeader\Filter\FilterAggregator;
 use DocHeader\Helper\DocheaderFileResolution;
 use DocHeader\Helper\IOResourcePathResolution;
 use DocHeader\Validator\RegExp;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Finder\SplFileInfo;
+use function assert;
+use function file_get_contents;
+use function is_array;
+use function is_string;
+use function strpos;
 
-/**
- * @author Jefersson Nathan <malukenho@phpse.net>
- */
 final class Checker extends Command
 {
     /**
-     * @throws \Symfony\Component\Console\Exception\InvalidArgumentException
-     *
-     * @return void
+     * @throws InvalidArgumentException
      */
-    protected function configure()
+    protected function configure() : void
     {
         $this
             ->setName('check')
@@ -71,24 +75,30 @@ final class Checker extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output) : int
     {
         $docheaderFile       = $this->getDocheaderFileContent($input);
-        $directory           = $input->getArgument('directory');
+        $directory           = (array) $input->getArgument('directory');
         $excludedDirectories = $input->getOption('exclude-dir') ?: [];
         $excludedFiles       = $input->getOption('exclude') ?: [];
-        $finder              = (new IOResourcePathResolution($directory, $excludedDirectories, $excludedFiles))
+
+        assert(is_array($excludedDirectories));
+        assert(is_array($excludedFiles));
+
+        $finder    = (new IOResourcePathResolution($directory, $excludedDirectories, $excludedFiles))
             ->__invoke();
-        $validator           = new RegExp($docheaderFile);
+        $validator = new RegExp($docheaderFile);
 
         $success = true;
-        /* @var $file \Symfony\Component\Finder\SplFileInfo */
+        /** @var SplFileInfo $file */
         foreach ($finder as $dir) {
             foreach ($dir as $file) {
-                if (! $this->docIsCompatible($validator, $file->getContents(), $docheaderFile)) {
-                    $success = false;
-                    $output->writeln('-> ' . $file->getRelativePathname());
+                if ($this->docIsCompatible($validator, $file->getContents(), $docheaderFile)) {
+                    continue;
                 }
+
+                $success = false;
+                $output->writeln('-> ' . $file->getRelativePathname());
             }
         }
 
@@ -100,30 +110,26 @@ final class Checker extends Command
         }
 
         $output->writeln('<bg=green;fg=white>    Everything is OK!     </>');
+
+        return 0;
     }
 
-    /**
-     * @param RegExp $headerValidator
-     * @param string $fileContent
-     * @param string $docheaderFile
-     *
-     * @return bool
-     */
-    private function docIsCompatible($headerValidator, $fileContent, $docheaderFile)
+    private function docIsCompatible(RegExp $headerValidator, string $fileContent, string $docheaderFile) : bool
     {
-        return $headerValidator->__invoke($fileContent) || false !== strpos($fileContent, $docheaderFile);
+        return $headerValidator->__invoke($fileContent) || strpos($fileContent, $docheaderFile) !== false;
     }
 
     /**
      * @throws Exception\DocHeaderFileConfiguration
-     *
-     * @return string
      */
-    private function getDocheaderFileContent(InputInterface $input)
+    private function getDocheaderFileContent(InputInterface $input) : string
     {
         $docheaderFile = $input->getOption('docheader');
+
+        assert(is_string($docheaderFile));
+
         $docheader = (new DocheaderFileResolution())->resolve($docheaderFile);
-        $filter = new Filter(file_get_contents($docheader));
+        $filter    = new FilterAggregator(file_get_contents($docheader));
 
         return $filter->apply();
     }

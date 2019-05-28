@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,34 +20,31 @@
  */
 namespace DocHeaderTest\Command\Exception;
 
-use DocHeader\Command\Exception\DirectoryException;
-use PHPUnit_Framework_TestCase;
+use DocHeader\Command\Exception\DirectoryNotFound;
+use PHPUnit\Framework\TestCase;
 
 /**
- * Tests for {@see \DocHeader\Command\Exception\DirectoryException}.
+ * Tests for {@see \DocHeader\Command\Exception\DirectoryNotFound}.
  *
  * @group   Unitary
- * @author  Jefersson Nathan <malukenho@phpse.net>
- * @license MIT
- *
- * @covers  \DocHeader\Command\Exception\DirectoryException
+ * @covers  \DocHeader\Command\Exception\DirectoryNotFound
  */
-final class DirectoryExceptionTest extends PHPUnit_Framework_TestCase
+final class DirectoryExceptionTest extends TestCase
 {
     /**
      * @test
      */
-    public function it_should_throw_exception_for_directory_not_found()
+    public function it_should_throw_exception_for_directory_not_found() : void
     {
-        $sut = DirectoryException::notFound('foo');
+        $sut = DirectoryNotFound::withName('foo');
 
-        $this->assertInstanceOf(DirectoryException::class, $sut);
+        $this->assertInstanceOf(DirectoryNotFound::class, $sut);
         $this->assertSame(
             'Directory "foo" could not be found.',
             $sut->getMessage()
         );
 
-        $this->setExpectedException(DirectoryException::class);
+        $this->expectException(DirectoryNotFound::class);
 
         throw $sut;
     }

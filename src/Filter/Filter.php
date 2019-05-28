@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,41 +20,11 @@
  */
 namespace DocHeader\Filter;
 
-/**
- * @author  Jefersson Nathan <malukenho@phpse.net>
- * @license MIT
- */
-final class Filter
+interface Filter
 {
     /**
-     * @var string
+     * Receives the docheader content, may already be processed by other
+     * filter and apply some changes, then return it.
      */
-    private $docheader;
-
-    /**
-     * @var string[]
-     */
-    private $dockBlockDefaultFilters = [
-        ReplaceCurrentYearPlaceholder::class,
-    ];
-
-    /**
-     * @param string $docheader
-     */
-    public function __construct($docheader)
-    {
-        $this->docheader = $docheader;
-    }
-
-    /**
-     * @return string
-     */
-    public function apply()
-    {
-        $applyFilters = function ($docheader, $filter) {
-            return (new $filter)->__invoke($docheader);
-        };
-
-        return array_reduce($this->dockBlockDefaultFilters, $applyFilters, $this->docheader);
-    }
+    public function __invoke(string $docheader) : string;
 }

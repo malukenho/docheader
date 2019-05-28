@@ -15,21 +15,18 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  */
-namespace DocHeader\Filter;
 
-/**
- * @author  Jefersson Nathan <malukenho@phpse.net>
- * @license MIT
- */
-interface FilterInterface
+declare(strict_types=1);
+
+namespace DocHeader\Command\Exception;
+
+use Exception;
+use function sprintf;
+
+final class DirectoryNotFound extends Exception
 {
-    /**
-     * Receives the docheader content, may already processed by other
-     * filter and apply some changes, them return it.
-     *
-     * @param string $docheader
-     *
-     * @return string
-     */
-    public function __invoke($docheader);
+    public static function withName(string $directory) : self
+    {
+        return new self(sprintf('Directory "%s" could not be found.', $directory));
+    }
 }

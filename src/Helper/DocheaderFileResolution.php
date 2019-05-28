@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,21 +21,16 @@
 namespace DocHeader\Helper;
 
 use DocHeader\Command\Exception\DocHeaderFileConfiguration;
+use const DIRECTORY_SEPARATOR;
+use function is_dir;
+use function is_file;
 
-/**
- * @author Jefersson Nathan  <malukenho@phpse.net>
- * @license MIT
- */
 final class DocheaderFileResolution
 {
     /**
-     * @param string $pathOrFile
-     *
      * @throws DocHeaderFileConfiguration
-     *
-     * @return string
      */
-    public function resolve($pathOrFile)
+    public function resolve(string $pathOrFile) : string
     {
         if (is_dir($pathOrFile)) {
             $pathOrFile .= DIRECTORY_SEPARATOR . '.docheader';

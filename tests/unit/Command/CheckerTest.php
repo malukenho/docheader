@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,20 +21,20 @@
 namespace DocHeaderTest\Command;
 
 use DocHeader\Command\Checker;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\StreamOutput;
+use function microtime;
+use function sys_get_temp_dir;
+use function tmpfile;
 
 /**
  * Tests for {@see \DocHeader\Command\Checker}.
  *
  * @group   Unitary
- * @author  Jefersson Nathan <malukenho@phpse.net>
- * @license MIT
- *
  * @covers  \DocHeader\Command\Checker
  */
-final class CheckerTest extends PHPUnit_Framework_TestCase
+final class CheckerTest extends TestCase
 {
     private $expectedDocHeader = <<<'DOCHEADER'
 /*
@@ -52,22 +55,21 @@ final class CheckerTest extends PHPUnit_Framework_TestCase
  */
 DOCHEADER;
 
-    /**
-     * @var Checker
-     */
+    /** @var Checker */
     private $checker;
 
     /**
      * {@inheritDoc}
      */
-    protected function setUp()
+    protected function setUp() : void
     {
-        parent::setUp();
-
         $this->checker = new Checker('test', $this->expectedDocHeader);
     }
 
-    public function testItShouldNotFailWhenCantFindFilesToValidate()
+    /**
+     * @test
+     */
+    public function it_should_not_fail_when_cant_find_files_to_validate() : void
     {
         $directory      = sys_get_temp_dir() . '/' . microtime(true);
         $outputResource = tmpfile();
@@ -78,7 +80,10 @@ DOCHEADER;
         $this->assertSame(0, $this->checker->run($input, $output));
     }
 
-    public function testItShouldValidateFile()
+    /**
+     * @test
+     */
+    public function it_should_validate_file() : void
     {
         $directory      = __DIR__ . '/../../assets/CorrectHeader.php';
         $outputResource = tmpfile();
@@ -89,7 +94,7 @@ DOCHEADER;
         $this->assertSame(0, $this->checker->run($input, $output));
     }
 
-    public function testItShouldFailToValidateMissingHeaderOnFiles()
+    public function testItShouldFailToValidateMissingHeaderOnFiles() : void
     {
         $directory      = __DIR__ . '/../../assets/MissingHeader.php';
         $outputResource = tmpfile();

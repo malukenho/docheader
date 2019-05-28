@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,24 +21,22 @@
 namespace DocHeaderTest\Validator;
 
 use DocHeader\Validator\RegExp;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
+use function sprintf;
 
 /**
  * Tests for {@see \DocHeader\Validator\Regex}.
  *
  * @group   Unitary
- * @author  Jefersson Nathan <malukenho@phpse.net>
- * @license MIT
- *
  * @covers  \DocHeader\Validator\RegExp
  */
-final class RegexTest extends PHPUnit_Framework_TestCase
+final class RegexTest extends TestCase
 {
     /**
      * @test
      * @dataProvider valid_regex_and_content
      */
-    public function it_should_assert_given_regex_on_content($regex, $content)
+    public function it_should_assert_given_regex_on_content($regex, $content) : void
     {
         $filter = new RegExp($regex);
 
@@ -49,7 +50,7 @@ final class RegexTest extends PHPUnit_Framework_TestCase
      * @test
      * @dataProvider invalid_regex_and_content
      */
-    public function it_should_not_assert_given_regex_on_content($regex, $content)
+    public function it_should_not_assert_given_regex_on_content($regex, $content) : void
     {
         $filter = new RegExp($regex);
 
@@ -59,7 +60,7 @@ final class RegexTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_should_return_false_if_header_does_not_have_regex_placeholder()
+    public function it_should_return_false_if_header_does_not_have_regex_placeholder() : void
     {
         $filter = new RegExp('No regex');
 

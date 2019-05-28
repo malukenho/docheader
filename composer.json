@@ -28,7 +28,6 @@
   "require-dev": {
     "doctrine/coding-standard": "^6.0",
     "phpunit/phpunit": "^7.0",
-    "roave/backward-compatibility-check": "^3.0",
     "vimeo/psalm": "^3.3"
   },
   "bin": [

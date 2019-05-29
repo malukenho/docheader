@@ -40,7 +40,8 @@ final class FilterAggregator
     public function apply() : string
     {
         $applyFilters = static function (string $docheader, string $filter) : string {
-            return (new $filter())->__invoke($docheader);
+            /** @psalm-var class-string<Filter> $filter */
+            return (string) (new $filter())->__invoke($docheader);
         };
 
         return array_reduce($this->dockBlockDefaultFilters, $applyFilters, $this->docheader);

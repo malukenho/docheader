@@ -2,7 +2,7 @@
 <psalm
     name="PSalm rules for malukenho/docheader"
     useDocblockTypes="true"
-    totallyTyped="false"
+    totallyTyped="true"
     allowStringToStandInForClass="true"
 >
     <projectFiles>

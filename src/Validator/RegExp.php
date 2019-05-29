@@ -42,7 +42,7 @@ final class RegExp
     public function __invoke(string $docheader) : bool
     {
         $didMatch = preg_match_all(
-            '{' . preg_quote(self::TAG_BEGIN) . '(.+?)' . preg_quote(self::TAG_END) . '}',
+            '{' . preg_quote(self::TAG_BEGIN, '{') . '(.+?)' . preg_quote(self::TAG_END, '{') . '}',
             $this->pattern,
             $matches
         );
@@ -53,16 +53,16 @@ final class RegExp
 
         $matchable = $this->pattern;
 
-        /** @var array[] $matches */
+        /** @var array<int, array<int, string>> $matches */
         foreach ($matches[0] as $k => $match) {
             $matchable = str_replace($match, sha1($match . $k), $matchable);
         }
 
-        $protected = preg_quote($matchable);
+        $protected = preg_quote($matchable, '{');
 
-        /** @var array[] $matches */
+        /** @var array<int, array<int, string>> $matches */
         foreach ($matches[1] as $k => $match) {
-            $protected = str_replace(preg_quote(sha1($matches[0][$k] . $k)), $match, $protected);
+            $protected = str_replace(preg_quote(sha1($matches[0][$k] . $k), '{'), $match, $protected);
         }
 
         return (bool) preg_match('#' . $protected . '#', $docheader);

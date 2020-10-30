@@ -28,7 +28,7 @@
   "require-dev": {
     "doctrine/coding-standard": "^6.0",
     "phpunit/phpunit": "^7.0 || ^8.0",
-    "vimeo/psalm": "^3.3"
+    "vimeo/psalm": "^3.3 || ^4.0"
   },
   "bin": [
     "bin/docheader"

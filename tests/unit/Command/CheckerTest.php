@@ -21,11 +21,10 @@ declare(strict_types=1);
 namespace DocHeaderTest\Command;
 
 use DocHeader\Command\Checker;
+use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\StreamOutput;
-use function microtime;
-use function sys_get_temp_dir;
 use function tmpfile;
 
 /**
@@ -63,7 +62,7 @@ DOCHEADER;
      */
     protected function setUp() : void
     {
-        $this->checker = new Checker('test', $this->expectedDocHeader);
+        $this->checker = new Checker('test');
     }
 
     /**
@@ -71,8 +70,10 @@ DOCHEADER;
      */
     public function it_should_not_fail_when_cant_find_files_to_validate() : void
     {
-        $directory      = sys_get_temp_dir() . '/' . microtime(true);
+        $fileSystem = vfsStream::setup();
+
         $outputResource = tmpfile();
+        $directory      = $fileSystem->path();
 
         $input  = new StringInput($directory);
         $output = new StreamOutput($outputResource);

@@ -1,25 +1,12 @@
 <?xml version="1.0"?>
 <psalm
-    name="PSalm rules for malukenho/docheader"
-    useDocblockTypes="true"
-    totallyTyped="true"
-    allowStringToStandInForClass="true"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="https://getpsalm.org/schema/config"
+        xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+        totallyTyped="true"
+        allowStringToStandInForClass="true"
 >
     <projectFiles>
         <directory name="src" />
     </projectFiles>
-
-    <issueHandlers>
-        <LessSpecificReturnType errorLevel="info" />
-        <DeprecatedMethod errorLevel="info" />
-        <MissingClosureReturnType errorLevel="info" />
-        <MissingReturnType errorLevel="info" />
-        <MissingPropertyType errorLevel="info" />
-        <InvalidDocblock errorLevel="info" />
-        <MisplacedRequiredParam errorLevel="info" />
-        <PropertyNotSetInConstructor errorLevel="info" />
-        <MissingConstructor errorLevel="info" />
-        <MissingClosureParamType errorLevel="info" />
-        <MissingParamType errorLevel="info" />
-    </issueHandlers>
 </psalm>

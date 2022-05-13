@@ -94,7 +94,7 @@ final class Checker extends Command
         $validator = new RegExp($docheaderFile);
 
         $success = true;
-        /** @var $finder SplFileInfo[]  */
+        /** @var SplFileInfo[][] $finder */
         foreach ($finder as $dir) {
             foreach ($dir as $file) {
                 if ($this->docIsCompatible($validator, $file->getContents(), $docheaderFile)) {

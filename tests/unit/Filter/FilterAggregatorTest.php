@@ -18,10 +18,12 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  */
+
 namespace DocHeaderTest\Filter;
 
 use DocHeader\Filter\FilterAggregator;
 use PHPUnit\Framework\TestCase;
+
 use function date;
 
 /**
@@ -35,7 +37,7 @@ final class FilterAggregatorTest extends TestCase
     /**
      * @test
      */
-    public function it_should_have_replace_current_year_placeholder_as_default_filter() : void
+    public function it_should_have_replace_current_year_placeholder_as_default_filter(): void
     {
         $this->assertClassHasAttribute('dockBlockDefaultFilters', FilterAggregator::class);
     }
@@ -43,7 +45,7 @@ final class FilterAggregatorTest extends TestCase
     /**
      * @test
      */
-    public function it_should_apply_default_filters_to_given_docheader() : void
+    public function it_should_apply_default_filters_to_given_docheader(): void
     {
         $docBlock = 'Year %year%';
         $filter   = new FilterAggregator($docBlock);

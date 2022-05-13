@@ -9,6 +9,7 @@ declare(strict_types=1);
  *
  * @license MIT
  */
+
 namespace DocHeaderTestAssets;
 
 class CorrectMultipleRegexHeader

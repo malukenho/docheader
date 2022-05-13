@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -21,17 +24,13 @@ namespace DocHeaderTest\Helper;
 use DocHeader\Helper\IOResourcePathResolution;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @author  Jefersson Nathan  <malukenho.dev@gmail.com>
- * @license MIT
- */
 final class IOResourcePathResolutionTest extends TestCase
 {
     /**
      * @test
      * @dataProvider directories_and_files
      */
-    public function it_should_return_a_finder_instance_with_directory_and_files($pathList, $excludeDir, $excludeFile, $fileCount)
+    public function it_should_return_a_finder_instance_with_directory_and_files($pathList, $excludeDir, $excludeFile, $fileCount): void
     {
         $resolver = new IOResourcePathResolution($pathList, $excludeDir, $excludeFile);
 
@@ -42,7 +41,7 @@ final class IOResourcePathResolutionTest extends TestCase
         $this->assertCount($fileCount, $result);
     }
 
-    public function directories_and_files()
+    public function directories_and_files(): array
     {
         return [
             [
@@ -73,9 +72,7 @@ final class IOResourcePathResolutionTest extends TestCase
                     __DIR__ . '/../Helper/',
                     __DIR__ . '/../Helper/FileResolveTest.php',
                 ],
-                [
-                    'Helper/',
-                ],
+                ['Helper/'],
                 [],
                 2,
             ],
@@ -85,9 +82,7 @@ final class IOResourcePathResolutionTest extends TestCase
                     __DIR__ . '/../Helper/',
                 ],
                 [],
-                [
-                    'FileResolveTest.php',
-                ],
+                ['FileResolveTest.php'],
                 1,
             ],
         ];

@@ -18,6 +18,7 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  */
+
 namespace DocHeaderTestAssets;
 
 /**

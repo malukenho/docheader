@@ -30,6 +30,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+
 use Symfony\Component\Finder\SplFileInfo;
 use function assert;
 use function file_get_contents;
@@ -42,7 +43,7 @@ final class Checker extends Command
     /**
      * @throws InvalidArgumentException
      */
-    protected function configure() : void
+    protected function configure(): void
     {
         $this
             ->setName('check')
@@ -75,7 +76,10 @@ final class Checker extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) : int
+    /**
+     * @throws Exception\DocHeaderFileConfiguration
+     */
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $docheaderFile       = $this->getDocheaderFileContent($input);
         $directory           = (array) $input->getArgument('directory');
@@ -90,7 +94,7 @@ final class Checker extends Command
         $validator = new RegExp($docheaderFile);
 
         $success = true;
-        /** @var SplFileInfo[][] $finder */
+        /** @var $finder SplFileInfo[]  */
         foreach ($finder as $dir) {
             foreach ($dir as $file) {
                 if ($this->docIsCompatible($validator, $file->getContents(), $docheaderFile)) {
@@ -114,7 +118,7 @@ final class Checker extends Command
         return 0;
     }
 
-    private function docIsCompatible(RegExp $headerValidator, string $fileContent, string $docheaderFile) : bool
+    private function docIsCompatible(RegExp $headerValidator, string $fileContent, string $docheaderFile): bool
     {
         return $headerValidator->__invoke($fileContent) || strpos($fileContent, $docheaderFile) !== false;
     }
@@ -122,7 +126,7 @@ final class Checker extends Command
     /**
      * @throws Exception\DocHeaderFileConfiguration
      */
-    private function getDocheaderFileContent(InputInterface $input) : string
+    private function getDocheaderFileContent(InputInterface $input): string
     {
         $docheaderFile = $input->getOption('docheader');
 

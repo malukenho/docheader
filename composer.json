@@ -21,17 +21,22 @@
     }
   },
   "require": {
-    "php": "^7.1 | ^8.0",
-    "symfony/console": "^3.0 || ^4.0 || ^5.0",
-    "symfony/finder": "^3.0 || ^4.0 || ^5.0"
+    "php": "^7.4 | ^8.0",
+    "symfony/console": "^4.4 || ^5.4 || ^6.0",
+    "symfony/finder": "^4.4 || ^5.4 || ^6.0"
   },
   "require-dev": {
-    "doctrine/coding-standard": "^6.0 || ^8.0 || ^9.0",
-    "phpunit/phpunit": "^7.0 || ^8.0",
-    "vimeo/psalm": "^4.1",
-    "mikey179/vfsstream": "^1.6"
+    "doctrine/coding-standard": "^9.0",
+    "phpunit/phpunit": "^9.5",
+    "vimeo/psalm": "^4.23",
+    "mikey179/vfsstream": "^1.6.10"
   },
   "bin": [
     "bin/docheader"
-  ]
+  ],
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  }
 }

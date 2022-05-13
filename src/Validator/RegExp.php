@@ -31,15 +31,14 @@ final class RegExp
     public const TAG_BEGIN = '%regexp:';
     public const TAG_END   = '%';
 
-    /** @var string */
-    private $pattern;
+    private string $pattern;
 
     public function __construct(string $pattern)
     {
         $this->pattern = $pattern;
     }
 
-    public function __invoke(string $docheader) : bool
+    public function __invoke(string $docheader): bool
     {
         $didMatch = preg_match_all(
             '{' . preg_quote(self::TAG_BEGIN, '{') . '(.+?)' . preg_quote(self::TAG_END, '{') . '}',

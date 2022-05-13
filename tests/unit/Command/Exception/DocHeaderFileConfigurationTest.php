@@ -18,6 +18,7 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  */
+
 namespace DocHeaderTest\Command\Exception;
 
 use DocHeader\Command\Exception\DocHeaderFileConfiguration;
@@ -34,7 +35,7 @@ final class DocHeaderFileConfigurationTest extends TestCase
     /**
      * @test
      */
-    public function it_should_throw_exception_for_directory_not_found() : void
+    public function it_should_throw_exception_for_directory_not_found(): void
     {
         $sut = DocHeaderFileConfiguration::notFound('/tmp');
 

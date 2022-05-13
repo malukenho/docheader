@@ -18,17 +18,17 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  */
+
 namespace DocHeader\Filter;
 
 use function array_reduce;
 
 final class FilterAggregator
 {
-    /** @var string */
-    private $docheader;
+    private string $docheader;
 
     /** @var string[] */
-    private $dockBlockDefaultFilters = [
+    private array $dockBlockDefaultFilters = [
         ReplaceCurrentYearPlaceholder::class,
     ];
 
@@ -37,11 +37,11 @@ final class FilterAggregator
         $this->docheader = $docheader;
     }
 
-    public function apply() : string
+    public function apply(): string
     {
-        $applyFilters = static function (string $docheader, string $filter) : string {
+        $applyFilters = static function (string $docheader, string $filter): string {
             /** @psalm-var class-string<Filter> $filter */
-            return (string) (new $filter())->__invoke($docheader);
+            return (new $filter())->__invoke($docheader);
         };
 
         return array_reduce($this->dockBlockDefaultFilters, $applyFilters, $this->docheader);

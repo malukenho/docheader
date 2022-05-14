@@ -53,13 +53,14 @@ final class RegExp
         $matchable = $this->pattern;
 
         /** @var array<int, array<int, string>> $matches */
+        $matches = $matches;
+
         foreach ($matches[0] as $k => $match) {
             $matchable = str_replace($match, sha1($match . $k), $matchable);
         }
 
         $protected = preg_quote($matchable, '{');
 
-        /** @var array<int, array<int, string>> $matches */
         foreach ($matches[1] as $k => $match) {
             $protected = str_replace(preg_quote(sha1($matches[0][$k] . $k), '{'), $match, $protected);
         }

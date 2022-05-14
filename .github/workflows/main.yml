@@ -15,6 +15,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+       php-version: matrix.php
+       coverage: none
+       tools: composer, cs2pr
+
     - name: Install dependencies
       if: matrix.dependencies == 'normal'
       run: composer install --prefer-dist

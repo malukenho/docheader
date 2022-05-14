@@ -89,7 +89,7 @@ final class Checker extends Command
         assert(is_array($excludedDirectories));
         assert(is_array($excludedFiles));
 
-        /** @var SplFileInfo[] $finder */
+        /** @var SplFileInfo[][] $finder */
         $finder    = (new IOResourcePathResolution($directory, $excludedDirectories, $excludedFiles))
             ->__invoke();
         $validator = new RegExp($docheaderFile);

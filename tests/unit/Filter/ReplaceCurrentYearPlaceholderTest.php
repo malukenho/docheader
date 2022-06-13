@@ -18,11 +18,13 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  */
+
 namespace DocHeaderTest\Filter;
 
 use DocHeader\Filter\Filter;
 use DocHeader\Filter\ReplaceCurrentYearPlaceholder;
 use PHPUnit\Framework\TestCase;
+
 use function date;
 
 /**
@@ -36,7 +38,7 @@ final class ReplaceCurrentYearPlaceholderTest extends TestCase
     /**
      * @test
      */
-    public function it_should_replace_the_year_tag_by_current_year() : void
+    public function it_should_replace_the_year_tag_by_current_year(): void
     {
         $filter    = new ReplaceCurrentYearPlaceholder();
         $docheader = 'Current Year -> %year%';

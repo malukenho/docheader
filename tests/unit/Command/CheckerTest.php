@@ -18,6 +18,7 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  */
+
 namespace DocHeaderTest\Command;
 
 use DocHeader\Command\Checker;
@@ -25,6 +26,7 @@ use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\StreamOutput;
+
 use function tmpfile;
 
 /**
@@ -35,7 +37,7 @@ use function tmpfile;
  */
 final class CheckerTest extends TestCase
 {
-    private $expectedDocHeader = <<<'DOCHEADER'
+    private string $expectedDocHeader = <<<'DOCHEADER'
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -54,13 +56,9 @@ final class CheckerTest extends TestCase
  */
 DOCHEADER;
 
-    /** @var Checker */
-    private $checker;
+    private Checker $checker;
 
-    /**
-     * {@inheritDoc}
-     */
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->checker = new Checker('test');
     }
@@ -68,7 +66,7 @@ DOCHEADER;
     /**
      * @test
      */
-    public function it_should_not_fail_when_cant_find_files_to_validate() : void
+    public function it_should_not_fail_when_cant_find_files_to_validate(): void
     {
         $fileSystem = vfsStream::setup();
 
@@ -84,7 +82,7 @@ DOCHEADER;
     /**
      * @test
      */
-    public function it_should_validate_file() : void
+    public function it_should_validate_file(): void
     {
         $directory      = __DIR__ . '/../../assets/CorrectHeader.php';
         $outputResource = tmpfile();
@@ -95,7 +93,7 @@ DOCHEADER;
         $this->assertSame(0, $this->checker->run($input, $output));
     }
 
-    public function testItShouldFailToValidateMissingHeaderOnFiles() : void
+    public function testItShouldFailToValidateMissingHeaderOnFiles(): void
     {
         $directory      = __DIR__ . '/../../assets/MissingHeader.php';
         $outputResource = tmpfile();

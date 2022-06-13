@@ -9,11 +9,17 @@ jobs:
 
     strategy:
       matrix:
-        php: ['7.1', '7.2', '7.3', '7.4', '8.0']
+        php: ['8.0', '8.1']
         dependencies: ['normal', 'authoritative']
 
     steps:
     - uses: actions/checkout@v2
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+       coverage: none
+       tools: composer, cs2pr
 
     - name: Install dependencies
       if: matrix.dependencies == 'normal'
@@ -36,4 +42,4 @@ jobs:
 
     - name: Run PhpCs
       if: matrix.php == '8.1'
-      run: ./vendor/bin/phpcs -q --report=checkstyle | ./vendor/bin/cs2pr
+      run: ./vendor/bin/phpcs -q --report=checkstyle | cs2pr

@@ -18,10 +18,12 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  */
+
 namespace DocHeader\Helper;
 
 use InvalidArgumentException;
 use Symfony\Component\Finder\Finder;
+
 use function array_map;
 use function basename;
 use function dirname;
@@ -30,33 +32,24 @@ use function rtrim;
 
 final class IOResourcePathResolution
 {
-    /** @var string[] */
-    private $directoryOrFile;
-
-    /** @var string[] */
-    private $excludedDirectory;
-
-    /** @var string[] */
-    private $excludedFiles;
-
     /**
      * @param string[] $directoryOrFile
      * @param string[] $excludedDirectory
      * @param string[] $excludedFiles
      */
-    public function __construct(array $directoryOrFile, array $excludedDirectory, array $excludedFiles)
-    {
-        $this->directoryOrFile   = $directoryOrFile;
-        $this->excludedDirectory = $excludedDirectory;
-        $this->excludedFiles     = $excludedFiles;
+    public function __construct(
+        private array $directoryOrFile,
+        private array $excludedDirectory,
+        private array $excludedFiles
+    ) {
     }
 
-    private function getDirectory(string $directoryOrFile) : string
+    private function getDirectory(string $directoryOrFile): string
     {
         return is_dir($directoryOrFile) ? $directoryOrFile : dirname($directoryOrFile);
     }
 
-    private function getFeatureMatch(string $directoryOrFile) : string
+    private function getFeatureMatch(string $directoryOrFile): string
     {
         return is_dir($directoryOrFile) ? '*.php' : basename($directoryOrFile);
     }
@@ -66,7 +59,7 @@ final class IOResourcePathResolution
      *
      * @throws InvalidArgumentException
      */
-    public function __invoke() : array
+    public function __invoke(): array
     {
         return array_map(
             /**
@@ -74,7 +67,7 @@ final class IOResourcePathResolution
              *
              * @return Finder
              */
-            function ($directoryOrFile) {
+            function (string $directoryOrFile) {
                 $finder = Finder::create()
                     ->files()
                     ->ignoreDotFiles(true)

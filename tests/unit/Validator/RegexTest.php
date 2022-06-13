@@ -18,10 +18,12 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  */
+
 namespace DocHeaderTest\Validator;
 
 use DocHeader\Validator\RegExp;
 use PHPUnit\Framework\TestCase;
+
 use function sprintf;
 
 /**
@@ -36,7 +38,7 @@ final class RegexTest extends TestCase
      * @test
      * @dataProvider valid_regex_and_content
      */
-    public function it_should_assert_given_regex_on_content($regex, $content) : void
+    public function it_should_assert_given_regex_on_content($regex, $content): void
     {
         $filter = new RegExp($regex);
 
@@ -50,7 +52,7 @@ final class RegexTest extends TestCase
      * @test
      * @dataProvider invalid_regex_and_content
      */
-    public function it_should_not_assert_given_regex_on_content($regex, $content) : void
+    public function it_should_not_assert_given_regex_on_content($regex, $content): void
     {
         $filter = new RegExp($regex);
 
@@ -60,14 +62,14 @@ final class RegexTest extends TestCase
     /**
      * @test
      */
-    public function it_should_return_false_if_header_does_not_have_regex_placeholder() : void
+    public function it_should_return_false_if_header_does_not_have_regex_placeholder(): void
     {
         $filter = new RegExp('No regex');
 
         $this->assertFalse($filter->__invoke('No regex'));
     }
 
-    public function valid_regex_and_content()
+    public function valid_regex_and_content(): array
     {
         return [
             'Space around content' => ['Heya %regexp:\d{2}%', '             Heya 12            '],
@@ -89,7 +91,7 @@ final class RegexTest extends TestCase
         ];
     }
 
-    public function invalid_regex_and_content()
+    public function invalid_regex_and_content(): array
     {
         return [
             'Space around content' => ['Heya %regexp:\d{2}+%', '             Heya 1 23            '],

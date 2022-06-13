@@ -27,10 +27,7 @@ final class ReplaceCurrentYearPlaceholder implements Filter
 {
     private const CURRENT_YEAR = '%year%';
 
-    /**
-     * {@inheritDoc}
-     */
-    public function __invoke(string $docheader) : string
+    public function __invoke(string $docheader): string
     {
         return str_replace(self::CURRENT_YEAR, date('Y'), $docheader);
     }

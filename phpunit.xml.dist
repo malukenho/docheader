@@ -1,23 +1,21 @@
 <?xml version="1.0"?>
-<phpunit
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-        bootstrap="./vendor/autoload.php"
-        colors="true"
-        verbose="true"
-        columns="max"
->
-    <testsuites>
-        <testsuite name="DocHeader tests">
-            <directory>./tests/unit</directory>
-        </testsuite>
-        <testsuite  name="DocHeader functional tests">
-            <directory suffix=".phpt">./tests/functional</directory>
-        </testsuite>
-    </testsuites>
-    <filter>
-        <whitelist>
-            <directory suffix=".php">./src</directory>
-        </whitelist>
-    </filter>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+         bootstrap="./vendor/autoload.php"
+         colors="true"
+         verbose="true"
+         columns="max">
+  <coverage>
+    <include>
+      <directory suffix=".php">./src</directory>
+    </include>
+  </coverage>
+  <testsuites>
+    <testsuite name="DocHeader tests">
+      <directory>./tests/unit</directory>
+    </testsuite>
+    <testsuite name="DocHeader functional tests">
+      <directory suffix=".phpt">./tests/functional</directory>
+    </testsuite>
+  </testsuites>
 </phpunit>

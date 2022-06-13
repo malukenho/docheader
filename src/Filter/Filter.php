@@ -18,6 +18,7 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  */
+
 namespace DocHeader\Filter;
 
 interface Filter
@@ -26,5 +27,5 @@ interface Filter
      * Receives the docheader content, may already be processed by other
      * filter and apply some changes, then return it.
      */
-    public function __invoke(string $docheader) : string;
+    public function __invoke(string $docheader): string;
 }

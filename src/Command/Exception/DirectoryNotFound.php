@@ -21,11 +21,12 @@ declare(strict_types=1);
 namespace DocHeader\Command\Exception;
 
 use Exception;
+
 use function sprintf;
 
 final class DirectoryNotFound extends Exception
 {
-    public static function withName(string $directory) : self
+    public static function withName(string $directory): self
     {
         return new self(sprintf('Directory "%s" could not be found.', $directory));
     }

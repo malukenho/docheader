@@ -31,18 +31,19 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\SplFileInfo;
+
 use function assert;
 use function file_get_contents;
 use function is_array;
 use function is_string;
-use function strpos;
+use function str_contains;
 
 final class Checker extends Command
 {
     /**
      * @throws InvalidArgumentException
      */
-    protected function configure() : void
+    protected function configure(): void
     {
         $this
             ->setName('check')
@@ -75,7 +76,10 @@ final class Checker extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) : int
+    /**
+     * @throws Exception\DocHeaderFileConfiguration
+     */
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $docheaderFile       = $this->getDocheaderFileContent($input);
         $directory           = (array) $input->getArgument('directory');
@@ -85,12 +89,13 @@ final class Checker extends Command
         assert(is_array($excludedDirectories));
         assert(is_array($excludedFiles));
 
+        /** @var SplFileInfo[][] $finder */
         $finder    = (new IOResourcePathResolution($directory, $excludedDirectories, $excludedFiles))
             ->__invoke();
         $validator = new RegExp($docheaderFile);
 
         $success = true;
-        /** @var SplFileInfo[][] $finder */
+
         foreach ($finder as $dir) {
             foreach ($dir as $file) {
                 if ($this->docIsCompatible($validator, $file->getContents(), $docheaderFile)) {
@@ -114,15 +119,15 @@ final class Checker extends Command
         return 0;
     }
 
-    private function docIsCompatible(RegExp $headerValidator, string $fileContent, string $docheaderFile) : bool
+    private function docIsCompatible(RegExp $headerValidator, string $fileContent, string $docheaderFile): bool
     {
-        return $headerValidator->__invoke($fileContent) || strpos($fileContent, $docheaderFile) !== false;
+        return $headerValidator->__invoke($fileContent) || str_contains($fileContent, $docheaderFile);
     }
 
     /**
      * @throws Exception\DocHeaderFileConfiguration
      */
-    private function getDocheaderFileContent(InputInterface $input) : string
+    private function getDocheaderFileContent(InputInterface $input): string
     {
         $docheaderFile = $input->getOption('docheader');
 

@@ -31,15 +31,11 @@ final class RegExp
     public const TAG_BEGIN = '%regexp:';
     public const TAG_END   = '%';
 
-    /** @var string */
-    private $pattern;
-
-    public function __construct(string $pattern)
+    public function __construct(private string $pattern)
     {
-        $this->pattern = $pattern;
     }
 
-    public function __invoke(string $docheader) : bool
+    public function __invoke(string $docheader): bool
     {
         $didMatch = preg_match_all(
             '{' . preg_quote(self::TAG_BEGIN, '{') . '(.+?)' . preg_quote(self::TAG_END, '{') . '}',
@@ -54,13 +50,14 @@ final class RegExp
         $matchable = $this->pattern;
 
         /** @var array<int, array<int, string>> $matches */
+        $matches = $matches;
+
         foreach ($matches[0] as $k => $match) {
             $matchable = str_replace($match, sha1($match . $k), $matchable);
         }
 
         $protected = preg_quote($matchable, '{');
 
-        /** @var array<int, array<int, string>> $matches */
         foreach ($matches[1] as $k => $match) {
             $protected = str_replace(preg_quote(sha1($matches[0][$k] . $k), '{'), $match, $protected);
         }

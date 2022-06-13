@@ -18,19 +18,22 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  */
+
 namespace DocHeader\Helper;
 
 use DocHeader\Command\Exception\DocHeaderFileConfiguration;
-use const DIRECTORY_SEPARATOR;
+
 use function is_dir;
 use function is_file;
+
+use const DIRECTORY_SEPARATOR;
 
 final class DocheaderFileResolution
 {
     /**
      * @throws DocHeaderFileConfiguration
      */
-    public function resolve(string $pathOrFile) : string
+    public function resolve(string $pathOrFile): string
     {
         if (is_dir($pathOrFile)) {
             $pathOrFile .= DIRECTORY_SEPARATOR . '.docheader';

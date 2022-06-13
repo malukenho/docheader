@@ -18,14 +18,16 @@ declare(strict_types=1);
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license.
  */
+
 namespace DocHeader\Command\Exception;
 
 use Exception;
+
 use function sprintf;
 
 final class DocHeaderFileConfiguration extends Exception
 {
-    public static function notFound(string $pathOrFile) : DocHeaderFileConfiguration
+    public static function notFound(string $pathOrFile): DocHeaderFileConfiguration
     {
         return new self(sprintf('Configuration file ".docheader" could not be found on %s.', $pathOrFile));
     }

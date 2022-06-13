@@ -31,11 +31,8 @@ final class RegExp
     public const TAG_BEGIN = '%regexp:';
     public const TAG_END   = '%';
 
-    private string $pattern;
-
-    public function __construct(string $pattern)
+    public function __construct(private string $pattern)
     {
-        $this->pattern = $pattern;
     }
 
     public function __invoke(string $docheader): bool

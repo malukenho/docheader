@@ -32,25 +32,16 @@ use function rtrim;
 
 final class IOResourcePathResolution
 {
-    /** @var string[] */
-    private array $directoryOrFile;
-
-    /** @var string[] */
-    private array $excludedDirectory;
-
-    /** @var string[] */
-    private array $excludedFiles;
-
     /**
      * @param string[] $directoryOrFile
      * @param string[] $excludedDirectory
      * @param string[] $excludedFiles
      */
-    public function __construct(array $directoryOrFile, array $excludedDirectory, array $excludedFiles)
-    {
-        $this->directoryOrFile   = $directoryOrFile;
-        $this->excludedDirectory = $excludedDirectory;
-        $this->excludedFiles     = $excludedFiles;
+    public function __construct(
+        private array $directoryOrFile,
+        private array $excludedDirectory,
+        private array $excludedFiles
+    ) {
     }
 
     private function getDirectory(string $directoryOrFile): string

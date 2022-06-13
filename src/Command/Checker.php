@@ -121,7 +121,7 @@ final class Checker extends Command
 
     private function docIsCompatible(RegExp $headerValidator, string $fileContent, string $docheaderFile): bool
     {
-        return $headerValidator->__invoke($fileContent) || strpos($fileContent, $docheaderFile) !== false;
+        return $headerValidator->__invoke($fileContent) || str_contains($fileContent, $docheaderFile);
     }
 
     /**

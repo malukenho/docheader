@@ -25,16 +25,13 @@ use function array_reduce;
 
 final class FilterAggregator
 {
-    private string $docheader;
-
     /** @var string[] */
     private array $dockBlockDefaultFilters = [
         ReplaceCurrentYearPlaceholder::class,
     ];
 
-    public function __construct(string $docheader)
+    public function __construct(private string $docheader)
     {
-        $this->docheader = $docheader;
     }
 
     public function apply(): string

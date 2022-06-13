@@ -36,7 +36,7 @@ use function assert;
 use function file_get_contents;
 use function is_array;
 use function is_string;
-use function strpos;
+use function str_contains;
 
 final class Checker extends Command
 {

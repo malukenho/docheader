@@ -11,4 +11,4 @@ $checkRunner('tests/assets/CorrectHeader.php tests/assets/MissingHeader.php ');
 --EXPECTF--
 -> MissingHeader.php
 
-%ASomething goes wrong!
+%ASomething went wrong!

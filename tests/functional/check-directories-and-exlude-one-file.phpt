@@ -19,4 +19,4 @@ $command->run(
 -> CorrectRegexHeader.php
 -> MissingHeader.php
 
-    Something goes wrong!
+    Something went wrong!

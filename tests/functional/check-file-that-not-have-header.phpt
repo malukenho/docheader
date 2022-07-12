@@ -12,4 +12,4 @@ $checkRunner('tests/assets/MissingHeader.php');
 
 -> MissingHeader.php
 
-%ASomething goes wrong!
+%ASomething went wrong!

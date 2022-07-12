@@ -109,7 +109,7 @@ final class Checker extends Command
 
         if (! $success) {
             $output->writeln('');
-            $output->writeln('<bg=red;fg=white>    Something goes wrong!     </>');
+            $output->writeln('<bg=red;fg=white>    Something went wrong!     </>');
 
             return 1;
         }

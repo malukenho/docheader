@@ -28,7 +28,7 @@
   "require-dev": {
     "doctrine/coding-standard": "^9.0",
     "phpunit/phpunit": "^9.5",
-    "vimeo/psalm": "^4.23",
+    "vimeo/psalm": "^4.23 || ^5.0",
     "mikey179/vfsstream": "^1.6.10"
   },
   "bin": [
